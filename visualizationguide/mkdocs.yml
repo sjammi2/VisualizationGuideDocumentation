@@ -1,4 +1,5 @@
 site_name: The Illinois Numerical Relativity Visualization Primer 
 nav:
   - Home: index.md
-
+theme:
+  name: readthedocs
