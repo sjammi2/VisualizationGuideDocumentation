@@ -11,5 +11,6 @@ nav:
   - Binary Neutron Stars: Section8.md
   - Binary Black Hole with Accretion Disk: Section9.md
   - Gravitational Waves: Section10.md
+  - References: References.md 
 theme:
   name: readthedocs
