@@ -31,6 +31,7 @@ manner. Key aspects that contribute to its feasibility include:
 </ol>
 
 **image here**
+![Figure 1: VisIt website binary releases](site/img/figures/visitwindowsdownloadp1.png)
 
 VisIt releases different versions of the software that can be installed on a local machine using
 binaries. These binaries are packaged code that includes an executable installer. The user can follow
