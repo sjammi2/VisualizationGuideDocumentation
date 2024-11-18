@@ -30,8 +30,8 @@ manner. Key aspects that contribute to its feasibility include:
     <li><strong>Community and Development:</strong>VisIt's development is supported by a robust community, with contributions from multiple organizations and universities. The ongoing development by 25 developers from DOE Laboratories and other institutions ensures continuous improvements and updates. 
 </ol>
 
-**image here**
-![Figure 1: VisIt website binary releases](site/img/figures/visitwindowsdownloadp1.png)
+![Figure 1: VisIt website binary releases](img/figures/visitwindowsdownloadp1.png)
+_Figure 1: VisIt website binary releases_
 
 VisIt releases different versions of the software that can be installed on a local machine using
 binaries. These binaries are packaged code that includes an executable installer. The user can follow
@@ -64,8 +64,15 @@ Fig.
 On the releases page, scroll down to find VisIt version 3.1.1, which is the version we will be using
 throughout this manual. Find the row corresponding to Mac OS and the column corresponding to
 VisIt 3.1.1 and click the Mac 10.14 dmg download, as shown in Fig
-**figure here**
-**figure here**
+
+
+![alt text](img/figures/visitwindowsdownloadp2.png)
+_Figure 2: VisIt 3.1 Series Binaries_
+
+
+![alt text](img/figures/windowsvisitinstallationimage2.png)
+
+_Figure 3: Windows installation prompt_
 
 After downloading the dmg, double click the download. A window should open with the VisIt
 application and the applications folder. Drag the VisIt icon to the applications folder, after which a
@@ -88,6 +95,9 @@ In this section, we will be installing VisIt 3.1.4 onto an Ubuntu 20.04 system. 
 After downloading the VisIt-install script and the corresponding .tgz file shown in Fig. 5, we
 first move these files into the same directory. To ensure that the scripts are correctly initialized as
 an executable, we run the following command.
+
+![alt text](img/figures/visitmacdownload.png)
+Figure 4: VisIt 3.1.1 Mac OS download
 
 <div class="link">
 <code>chmod +x VisIt-install</code>
@@ -118,8 +128,9 @@ the location in which we wish to install VisIt. This can be anywhere on the mach
 /user/src is typically the location of locally installed software on Linux systems, which is where
 we will be installing VisIt.
 
-**Insert Figure Here**
+![alt text](img/figures/visitlinuxinstallation.png)
 
+Figure 5: VisIt 3.1.4 Linux Installation
 
 Putting all of this together, the command we run is:
 
