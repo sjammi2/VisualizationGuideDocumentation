@@ -47,39 +47,58 @@ the raw data in the terminal. Several useful options that can allow the user to 
 from an HDF5 file more effectively are listed below.
 
 <ol>
-    <li><strong>Viewing file contents:</strong> With the -n or -contents flag after the h5dump command (Fig. 12),
-we can list all of the data stored in the h5 file, which can be especially useful when trying to
-pick up minute pieces of information quickly from the file. Additionally, we are able to view
-the headers or titles of the data with corresponding information through the -H or -header
-flag after the h5dump command (Fig. 13), which can be used to extract specific details about
-the datasets themselves, such as their attributes and data types.
+    <li>
+        <strong>Viewing file contents:</strong> With the -n or -contents flag after the h5dump command (Fig. 12),
+        we can list all of the data stored in the h5 file, which can be especially useful when trying to
+        pick up minute pieces of information quickly from the file. Additionally, we are able to view
+        the headers or titles of the data with corresponding information through the -H or -header
+        flag after the h5dump command (Fig. 13), which can be used to extract specific details about
+        the datasets themselves, such as their attributes and data types.
+    </li>
+</ol>
 
-**insert figure**
+![alt text](img/figures/Visitguide_h5dump1.png)
 
-Similarly, the h5ls command can be used to display data stored within the groups and datasets
-recursively. The output of h5ls is often more streamlined than the output of h5dump. When
-the -v flag is used with the h5ls command, the different properties of the dataset such as the
-storage capacity, file contents, and attributes are shown, providing a more detailed snapshot
-of the HDF5 file.
-**insert figure here**
+<div style="text-align: center;">
+    <p>Figure 12: h5dump with contents flag (h5dmp -n)</p>
+</div>
 
-</li>
-    <li><b>Viewing datasets/groups:</b>If we want to view the datasets or groups in an HDF5 file, we can use the -d "Dataset Name" or -g "Group Name" flag with the h5dump command. These flags allow us to analyze specific components of the data that we are interested as well as the
-raw data stored within the dataset.
-**insert figure**
-Some additional flags that might prove useful in combination with the h5dump command CLI
-tool might be the -A 0 flag, which suppresses attributes when displaying data from the h5 file
-and simplifies the output quite a bit. We could also index specific datasets or groups that
-have specific additions through the -N PATH flag, which matches any object within the h5 file
-the another object or attribute at a specific path.
-Within the h5ls CLI tool, we can index specific datasets by simply adding the path of the
-dataset within the h5 file. The -d or -data flag can be used in combination with the h5ls
-command in order to display the corresponding data within the specific dataset of the h5 file.
+<div style="padding-left: 2em; line-height: 1.5;">
+   Similarly, the h5ls command can be used to display data stored within the groups and datasets
+   recursively. The output of h5ls is often more streamlined than the output of h5dump. When
+   the -v flag is used with the h5ls command, the different properties of the dataset such as the
+   storage capacity, file contents, and attributes are shown, providing a more detailed snapshot
+   of the HDF5 file.
+</div>  
 
-**insert figure**
+![alt text](img/figures/Visitguide_h5dump2.png)
+<div style="text-align: center;">
+    <p>Figure 13: h5dump with header flag (h5dump -H)</p>
+</div>
 
+<ol start="2">
+    <li>
+        <strong>Viewing datasets/groups:</strong> If we want to view the datasets or groups in an HDF5 file, we can use the -d "Dataset Name" or -g "Group Name" flag with the h5dump command. These flags allow us to analyze specific components of the data that we are interested as well as the raw data stored within the dataset.
 </li>
 </ol>
+
+![alt text](img/figures/guideh5dump-d.png)
+
+<div style="padding-left: 2em; line-height: 1.5;">
+      Some additional flags that might prove useful in combination with the h5dump command CLI
+      tool might be the -A 0 flag, which suppresses attributes when displaying data from the h5 file
+      and simplifies the output quite a bit. We could also index specific datasets or groups that
+      have specific additions through the -N PATH flag, which matches any object within the h5 file
+      the another object or attribute at a specific path. 
+</div>
+
+<div style="padding-left: 2em; line-height: 1.5;">
+   Within the h5ls CLI tool, we can index specific datasets by simply adding the path of the
+   dataset within the h5 file. The -d or -data flag can be used in combination with the h5ls
+   command in order to display the corresponding data within the specific dataset of the h5 file.
+</div>
+
+![alt text](img/figures/guide_h5lsf3.png)
 
 ### VTK Files
 
@@ -179,7 +198,16 @@ values. The colorControlPoint field takes in the RGBA color value and the densit
 distribution percentage. Unlike isosurface rendering, rendering automatically fills in the
 missing color values. Thus, we don’t need to create an elaborate color table with too many
 intermediate colors.
-**insert figure** 
+</li>
+</ol>
+
+![alt text](img/figures/binarybhf1.png)
+<div style="text-align: center;">
+    <p>Figure 14: Ray casting volume rendering of a magnetized accretion disk around a binary black hole
+system</p>
+</div>
+
+<ol start="2">
 </li> 
    <li><u><code>freeformOpacity</code>: Opacity map used for plot</u>
    Instead of filling up the colorbar with different color palettes, we are able to exercise fine
@@ -224,13 +252,81 @@ in its path. By increasing the number of samples that are being cast through the
 each ray, we are able to improve the overall quality of the image. Having too few sample
 points along a ray gives rise to sampling artifacts such as rings or voids and decreases the
 overall ”smoothness”. However, sampling more points takes longer to render. We observe a
-1:1 correlation between changes in image rendering time and the number of samples per ray.</li> 
+1:1 correlation between changes in image rendering time and the number of samples per ray.
+</li> 
 </ol>
 
 To get a better grasp of the volume rendering process, we will be visualizing a 3D model of
 density VTK file through both the VisIt GUI and then through the VisIt CLI. This file containing
 this 3D data can be found at <a href="https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_4/sample_density.vtk"><code>VisIt-Guide/sec 4/sample density.vtk</code></a>
+<ol>
+   <li>
+      In the GUI, begin by opening up the sample density.vtk file as a database. This can be
+done by clicking Open and navigating to sample density.vtk in the file explorer that opens
+up. From here, add a volume plot by clicking Add → Volume → density (Fig. 15) and
+click Draw in order to create the plot.
 
+<li>
+Now we need to draw the sample density and choose the camera/viewing angle in a satisfactory
+way. Next, open up the volume rendering settings in PlotAtts → Volume . . . , which will
+open a window as in Fig. 16.
+In order to activate ray casting, we will need to change the Rendering Method field from
+Default Rendering to Ray Casting: compositing. Additionally, we will want to increase
+the Samples per ray from 500 to 10000. Since the Ray Casting rendering method is
+computationally expensive, make sure to finalize any adjustments to the viewing angle or the
+model framing before activating the Ray Casting rendering process. The resulting visualization
+should look similar to Fig. 17.
+
+<li>
+Within the transfer function, there are two distinct characteristics that we can experiment with:
+color and opacity. Starting off with color, the smoothing attribute controls how VisIt will
+interpolate between the specified color points to create a colorbar that is used to represent the
+density values plotted within the model. There are three distinct options on how VisIt chooses
+to interpolate the color points: Linear, Cubic Spline, and None. With Linear interpolation,
+VisIt will create a simple gradient between each color point and numerically fill in each value.
+With Cubic Spline, VisIt will create a piece-wise cubic polynomial in order to calculate the
+color point values, which can create a different type of gradient across the colorbar. With None, 
+VisIT will not interpolate the values in between the specified color points, which creates
+a colorbar with discrete sections of color.
+</li>
+</ol>
+
+
+
+![alt text](img/section5_volumerendering/volumerendering_figure1.png)
+<div style="text-align: center;">
+    <p>Figure 15: Creating a volume rendering plot</p>
+</div>
+
+![alt text](img/section5_volumerendering/volumerendering_figure2.png)
+<div style="text-align: center;">
+    <p>Figure 16: Volume rendering settings</p>
+</div>
+
+The following is the corresponding CLI script in order to recreate the Volume Rendering image
+in Fig. 17.
+
+![alt text](img/section5_volumerendering/volumerendering_figure3.png)
+<div style="text-align: center;">
+    <p>Figure 17: Volume rendering of the sample density file</p>
+</div>
+
+![alt text](img/section5_volumerendering/smoothing-linear.png)
+<div style="text-align: center;">
+    <p>Figure 18: Colorbar with linear interpolation</p>
+</div>
+
+![alt text](img/section5_volumerendering/smoothing-cublic.png)
+<div style="text-align: center;">
+    <p>Figure 19: Colorbar with cubic spline interpolation</p>
+</div>
+
+![alt text](img/section5_volumerendering/smoothing-none.png)
+<div style="text-align: center;">
+    <p>Figure 20: Colorbar with no interpolation</p>
+</div>
+
+**Code List
 
 ### Isosurface Rendering
 Like volume rendering, isosurface rendering is a way of visualizing 3D (as well as 2D) scalar fields.
@@ -250,6 +346,10 @@ either percentages between the minimum and maximum of the data such as 5 %, 15 %
 through explicitly specifying the level values themselves such using a comma-separated list of values
 (e.g. (−2.6, −2.43, −2.32, . . .)).
 
+![alt text](img/figures/3.png)
+<div style="text-align: center;">
+    <p>Figure 21: Isosurface rendering of a massive accretion disk around a black hole</p>
+</div>
 
 In Fig. 21, we use isosurface rendering to plot the fluid density of a massive accretion disk around
 a black hole (here the Slice operator is used to view the interior of the disk). Since we are working
@@ -300,8 +400,111 @@ the right balance.
 
 To better understand the isosurface rendering, we will be visualizing the same sample file we visualized
 using volume rendering in the previous section: <a href="https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_4/sample_density.vtk"><code>VisIt-Guide/sec 4/sample density.vtk</code></a>.
-We will create a visualization in the GUI and provide a CLI script that replicates the visualization
+We will create a visualization in the GUI and provide a CLI script that replicates the visualization.
 
+<ol>
+<li>
+In the VisIt GUI, begin by opening up the sample density.vtk as a database, which can
+be done within the toolbar’s File → Open file, writing the path of the file within the
+database window, and loading the aforementioned file. From here, we will want to add
+Pseudocolor→density and the Operators→Slicing→Isosurface as seen in Fig. 22. Then
+we can click on Draw in order to create a rendering of the data
+</li>
+</ol>
+
+![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure1.png){: style="width:45%; display:inline-block;" }
+![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure2.png){: style="width:45%; display:inline-block;" }
+
+<div style="text-align: center;">
+    <p>Figure 22: Setup for the isosurface rendering</p>
+</div>
+
+**Code List
+<ol start='2'>
+<li>
+At this point there are quite a few different settings we can adjust in order to improve on the
+quality of the model, such as the pseudocolor settings of the model which is largely controlled
+by the model’s color table. Colortables are critical to the structure of the visualization, as
+the color table is essential in highlighting different attributes of the plot. In order to better
+understand the structure of color tables so we can design and implement our own custom
+color tables within our models, we break down the example color table as seem in Code
+Listing 1. Within Visit, color tables are broken up into a series of discretely defined list
+26 of colors within XML file under a .ct file extension. Within the XML file, the are listed
+within a ColorControlPointList in which each distinct objects within the list define a
+color value at a specific position between the colorbar. Looking at 1, we can see that there
+are two fields of interest within each ColorControlPoint: the position field parameter
+and the colors field parameter. An example of a fully detailed colorbar can be found at
+VisIt-Guide/sec_4/bhbhdisk.ct
+
+The colors field parameter defines the color and opacity value at that specific point within
+the colorbar in a Red-Green-Blue-Alpha (RGBA) color value. The RGBA color value defines
+a specific color through a mixture of Red, Green, and Blue pixel color values, which are all
+defined as an integer between 0 to 256. The Alpha aspect of the RGBA color value can be
+thought of as the associated opacity value for that specific color, which is also an integer
+between 0 to 256.
+
+The position field parameter is a float value defined between 0.00 to 1.00 that is associated
+with the position of the corresponding RGBA color value within the colorbar. For example,
+if this position field parameter float value is defined to be 0.5, then the RGBA color value
+defined within the ColorControlPoint would be associated to the middle of the colorbar.
+Essentially, VisIt will take these set of discrete color points defined across the colorbar and
+will interpolate the color points in order to generate a fully continuous colorbar used to map
+the different density values within the visualization. There are three distinct methods of
+interpolation that VisIt can use to generate the colorbar from this pre-defined color point list:
+CubicSpline, Linear, and None. With Linear interpolation, VisIt will create a simple gradient
+between each color point and numerically fill in each value. With Cubic Spline, VisIt will
+create a piece-wise cubic polynomial in order to calculate the color point values, which can
+create a different type of gradient across the colorbar. With None, VisIT will not interpolate
+the values in between the specified color points, which creates a colorbar with discrete sections
+of color.
+
+
+<li>
+Now that we have a better understanding of exactly how the color table is set up, we
+can move onto implementing it and utilizing its properties within our visualization. We
+can begin by opening up the pseudocolor settings window as seen in 23 by navigating to
+PlotAtts→Pseudocolor. . . on the GUI toolbar. In the Color section of this window, we
+can adjust the color table and the opacity used by the plot. If we change the Opacity setting
+in this section from Full opacity to From color table as well as the Color Table setting
+to our custom colorbar, we can directly adjust colorbar and the different opacity levels used
+in the plot through the settings delineated within the color table XML file, which gives us
+finer control over the visualization. Now all of the color settings are imported from the color
+table. To create a new color table for experimentation, we can open the color table window
+by navigating to Controls→Color table... in the GUI toolbar. We describe how to create
+and export a color table in Sec. 4.4. After the color table is created and exported, we will be
+27 able to find the color table in the color table dropdown menu of the pseudocolor plot options
+window. To experiment with color table settings, we can either modify and re-export the color
+table in the color table settings window (Controls→Color table...) or directly modify the
+.ct file found in ∼/.visit/ (which is where color tables export to).
+
+
+<li>
+Additionally, the clarity and resolution of the visualization can also be adjusted by experi-
+menting with the isosurface rendering settings. Found at OpAtts→Slicing→Isosurface. . . ,
+we can experiment with the isosurface operator characteristics. As mentioned previously, we
+can adjust the number of isosurfaces and the values each isosurface corresponds to.
+</li>
+</ol>
+
+![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure3.png)
+<div style="text-align: center;">
+    <p>Figure 23: Adjusting pseudocolor plot attributes and isosurface operator attributes</p>
+</div>
+
+<ol start='5'>
+<li>
+After some experimentation we expect the rendering to be similar to the image in Fig. 24.
+This image can be replicated by using the bhbhdisk.ct colorbar provided within the manual,
+as well as using 25 levels within the rendering process.
+</li>
+</ol>
+
+![alt text](img/section5_isosurfacerendering/isosurface_rendering_final_image.png)
+<div style="text-align: center;">
+    <p>Figure 24: Isosurface rendering final image</p>
+</div>
+
+**Code
 
 ### Vector Fields
 In this section, we will be making vector plots similar to section 4. The file containing the vector
