@@ -54,8 +54,10 @@ of finding proper seed points for magnetic field lines involves starting from an
 seed points and the integral curve settings. Below, we provide some examples of some steps taken
 before creating a final image.
 
-**insert figure here**
-
+![alt text](img/magnetars/2D_plots.png)
+<div style="text-align: center;">
+    <p>Figure 46: 2D slices of a magnetar. Adapted from [9].</p>
+</div>
 
 ## Poloidal Field Lines
 
@@ -95,7 +97,16 @@ should get familiar with how each setting affects the plot by changing only one 
 However, with more experience, we will develop more intuition regarding different settings. The
 changes we’ve made, give us the image on the right side of Fig. 47(b).
 
-**insert two figures here**
+**modify two figures here**
+![alt text](img/magnetars/pol_before.png)
+<div style="text-align: center;">
+    <p>Figure 47: Poloidal field lines with different settings.</p>
+</div>
+
+![alt text](img/magnetars/pol_after.png)
+<div style="text-align: center;">
+    <p>Figure 47: Poloidal field lines with different settings.</p>
+</div>
 
 ## Toroidal Field Lines
 Since toroidal field lines integrate around the entire star (i.e. will cover all angles of ϕ), instead of
@@ -121,9 +132,23 @@ found for the poloidal field lines. However, the coils of field lines don’t in
 the star. To address this, we increase the number of steps from 500 to 5000. The changes we’ve
 made give us the image on the right side of Fig. 48.
 
-**insert figure here**
+**modify figure here**
+![alt text](img/magnetars/tor_before.png)
+<div style="text-align: center;">
+    <p>Figure 48: Toroidal field lines with various settings.</p>
+</div>
+
+![alt text](img/magnetars/tor_after.png)
+<div style="text-align: center;">
+    <p>Figure 48: Toroidal field lines with various settings.</p>
+</div>
 
 ## Final Image and Summary
+
+![alt text](img/magnetars/final_image.png)
+<div style="text-align: center;">
+    <p>Figure 49: A magnetar with mixed poloidal and toroidal field lines.</p>
+</div>
 
 Combining the poloidal and toroidal field lines we’ve created we get the final image in Fig. 49.
 In this section, we discussed the steps taken to draw magnetic field lines with mixed poloidal
@@ -137,6 +162,17 @@ strongest near the outer edge of the star</li>
     <li>Using this information, we used picked points in the center (outer edge) of the star to seed
 poloidal (toroidal) magnetic field lines. To create an initial image, we used some arbitrary
 integral curve settings to serve as a default.</li>
-    <li></li>
+    <li>After drawing the image using the first round of settings, we noticed what we need to tweak
+the seed points and integral curve for a better result. This step is usually carried out multiple
+times before we have an image that we are satisfied with.</li>
 </ol>
 
+Some of the settings that are commonly changed/tuned to achieve a nice final image are listed
+below.
+
+**Still Need Modify**
+
+Finally, to create visualizations at times after the initial time, we can use the same integration
+settings as we use at the initial time. For the seed points, like described earlier, we choose the
+nearest particles to each of our seed points, and use these particles as to seed the magnetic field
+lines at all subsequent times.

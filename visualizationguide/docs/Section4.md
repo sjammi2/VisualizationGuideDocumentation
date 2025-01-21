@@ -532,9 +532,30 @@ You are encouraged to explore some of the settings to see how they affect the pl
 <code>visit -cli -nowin -s run_vector.py</code>
 </div>
 
-**insert figure here**
+![alt text](img/sec_5_vector_files/5.2.3.0-vector_attributes.png)
+<div style="text-align: center;">
+    <p>Figure 25: VisIt GUI vector attributes</p>
+</div>
 
-**insert figure here**
+![alt text](img/sec_5_vector_files/5.2.3.1-vector-glyphs.png)
+<div style="text-align: center;">
+    <p>Figure 26: Vector Glyph attributes</p>
+</div>
+
+![alt text](img/sec_5_vector_files/5.2.3.2-vector-data.png)
+<div style="text-align: center;">
+    <p>Figure 27: Vector data and vectors attributes</p>
+</div>
+
+![alt text](img/sec_5_vector_files/5.2.3.3-vector_vectors.png)
+<div style="text-align: center;">
+    <p>Figure 27: Vector data and vectors attributes</p>
+</div>
+
+![alt text](img/sec_5_vector_files/5.2.3.4-final_plot.png)
+<div style="text-align: center;">
+    <p>Figure 28: VisIt GUI vector field plot</p>
+</div>
 
 **insert code listing here**
 
@@ -610,7 +631,10 @@ is actually the integral curve operator applied to the pseudocolor plot. In the 
 navigate to: Pseudocolor → operators → IntegralCurve → vec field (Fig. 29).
 
 
-**insert figure**
+![alt text](img/sec_5_streamline_files/5.2.4.0-add_streamline.png)
+<div style="text-align: center;">
+    <p>Figure 29: Adding a streamline plot</p>
+</div>
 
 Next, we need to pick seed points to use. To do this, we open the OpAtts (operator attributes)
 dropdown menu at the top of the window and select: Integral Curves → IntegralCurve. Since
@@ -636,9 +660,20 @@ attribute equal to
 (x1, y1, z1, x2, y2, z2, . . . , xn, yn, zn).
 </div>
 
-**insert figure**
+![alt text](img/sec_5_streamline_files/5.2.4.1-integralcurve_atts.png)
+<div style="text-align: center;">
+    <p>Figure 30: Integral Curve Attributes</p>
+</div>
 
-**insert figure**
+![alt text](img/sec_5_streamline_files/5.2.4.1-integralcurve_atts1.png)
+<div style="text-align: center;">
+    <p>Figure 30: Integral Curve Attributes</p>
+</div>
+
+![alt text](img/sec_5_streamline_files/5.2.4.2-final-plot.png)
+<div style="text-align: center;">
+    <p>Figure 31: Example Streamline Plot</p>
+</div>
 
 This way, we can write our own scripts to generate seed points. In the following example, we use
 NumPy. Another option is to read from a previously created text file. The CLI script that recreates
@@ -725,7 +760,10 @@ There are often mathematical relationships derived from the different variables 
 simulation data we will want to visualize. To address this need within scientific visualizations, VisIt
 allows us to create mathematical expressions from database variables.
 
-**insert figure**
+![alt text](img/section5_expressionscorrelations/expressionsandcorrelationsfigure1.png)
+<div style="text-align: center;">
+    <p>Figure 32: Expression window within VisIt</p>
+</div>
 
 In the GUI, expressions can be created and edited in the expressions window at Controls→Expressions.
 On the left-hand side, there is an expression list that contains a list of different expressions that
@@ -747,7 +785,11 @@ ation, we would like to transform the density variable, and after a simple exami
 sample density.vtk file, we can find that the max variable is 1200.0. Using this information, we
 can write the expression as seen within Fig. 33. After doing so, we use this variable by clicking the Apply button
 
-**insert figure**
+
+![alt text](img/section5_expressionscorrelations/expressionsandcorrelationsfigure3.png)
+<div style="text-align: center;">
+    <p>Figure 33: Set up for log ρ expression</p>
+</div>
 
 From here, we can create an isosurface rendering of the density, which can be done following the
 steps listed in Sec. 4.2.2. The final image should look similar to Fig. 34.
@@ -761,7 +803,11 @@ that contain magnetic field data that is output by the Illinois GRMHD code as an
 opening up these databases as the same type (in this case it would be CarpetHDF5), we must create
 new scalar expressions of these databases after they have been cast onto the Carpet AMR-grid.
 
-**insert figure here**
+
+![alt text](img/section5_expressionscorrelations/expressionsandcorrelationfigure4.png)
+<div style="text-align: center;">
+    <p>Figure 34: Isosurface rendering of log(ρ) - sample density</p>
+</div>
 
 This is done with conn cmfe() method. For the Bx.file * database which has the HDF5 prefix
 MHD EVOVLE, we would do:
@@ -778,7 +824,16 @@ shown above into the definition. We repeat the process for By and Bz. Then to cr
 field, we create a new Vector mesh variable. We name it Bvec and input {Bx, By, Bz} into the
 definition. The expressions for Bx and Bvec are shown in Fig.
 
-**insert figure**
+![alt text](img/sec_5_expressions/vec_2.png)
+<div style="text-align: center;">
+    <p>Figure 35: Creating a vector expression from scalar HDF5 databases</p>
+</div>
+
+![alt text](img/sec_5_expressions/vec_1.png)
+<div style="text-align: center;">
+    <p>Figure 35: Creating a vector expression from scalar HDF5 databases</p>
+</div>
+
 
 In the command line, this can be done using Code Lst. 4.3 which can also be found at
 <a href="https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_4/define_vec_field.py"><code>VisIt-Guide/sec 4/define_vec_field.py</code></a>.
@@ -809,7 +864,10 @@ useful when using isosurface rendering. This is because there is an option to us
 the color table which gives us finer control over the opacity of the isosurfaces. We can also choose
 how the colors are smoothed into each other.
 
-**insert figure**
+![alt text](img/sect_5_export/5.4.1-ct_atts.png)
+<div style="text-align: center;">
+    <p>Figure 36: Creating color tables</p>
+</div>
 
 When we are done, we need to export the color table so it can be used in other parts of VisIt.
 First, we give the color table a name in the Name field (in the example below, we name our
@@ -830,7 +888,10 @@ we can click Save which opens a file explorer. We then enter where we want to sa
 attributes .xml file before saving (Fig. 37)
 
 
-**insert figure **
+![alt text](img/sect_5_export/5.4.2-expt_vol_atts.png)
+<div style="text-align: center;">
+    <p>Figure 37: Exporting attributes to .xml files</p>
+</div>
 
 Now that we have a volume attributes .xml file saved, instead of specifying the volume settings
 one by one in the CLI like shown in Code Lst. 4.4.
@@ -846,7 +907,10 @@ as color tables or the freeformOpacity volume setting in .ct and .xml files. For
 that we change very often, it is still useful to directly set them in the CLI. Commonly, we load a
 saved .xml file, and then override specific settings with our own choices.
 
-**insert figure here***
+![alt text](img/sec_5_finalize/5.5.0-view_diagram.png)
+<div style="text-align: center;">
+    <p>Figure 38: View 3D diagram</p>
+</div>
 
 ## Finalizing Images
 
@@ -868,8 +932,10 @@ and legends aren’t super customizable, so the numerical relativity visualizati
 make use of them. With the exception of the t/M label, we finalize our images by removing all VisIt
 legends and labels, and adding our own with image editors like GIMP or Photoshop. However, we will still briefly go over some of the options you have.
 
-**insert figure here**
-
+![alt text](img/sec_5_finalize/5.5.1-text_annotation.png)
+<div style="text-align: center;">
+    <p>Figure 39: Text Annotations</p>
+</div>
 
 o open the annotation settings in the GUI, click Annotation in the Control dropdown menu.
 The setting that you might want to change first is the background color, which can be found in

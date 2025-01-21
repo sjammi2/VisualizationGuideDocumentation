@@ -64,6 +64,10 @@ the result in Fig. 40.
 **insert code listing here**
 
 **insert figure**
+![alt text](img/sect_6/sect_6_blackholes/6.1-BH_spinvec.png)
+<div style="text-align: center;">
+    <p>Figure 40: A tilted black hole with its spin vector. The black ellipse is the apparent horizon.</p>
+</div>
 
 
 ## Density
@@ -195,6 +199,15 @@ from within the two neutron stars. If we don’t use particle seeds to seed magn
 then the visualized magnetic fields wouldn’t follow the neutron stars as they inspiral.
 
 **insert figure here**
+![alt text](img/sect_6/sect_6_bfield/nsns-particle_0.png)
+<div style="text-align: center;">
+    <p>Figure 41: Particle seeded field lines in binary neutron stars</p>
+</div>
+
+![alt text](img/sect_6/sect_6_bfield/nsns-particle_1.png)
+<div style="text-align: center;">
+    <p>Figure 41: Particle seeded field lines in binary neutron stars</p>
+</div>
 
 The process of choosing which particles to follow—as mentioned earlier—comes down to choosing
 which particles at t = 0 create a visualization that best showcases the physics of the system. The
@@ -266,7 +279,10 @@ overall ”smoothness”. However, sampling more points takes longer to render. 
 
 **Code Listing**
 
-**Insert Figure Here**
+![alt text](img/sect_6/sect_6_bfield/seemaker.png)
+<div style="text-align: center;">
+    <p>Figure 42: Seed point rings orthogonal to spin</p>
+</div>
 
 Two rings of a specified radius are generated at a specified height above and below the plane
 orthogonal to the spin axis. As an example, in Fig. 42, four rings that lie on planes orthogonal to the spin vector of a tilted black hole are shown.
@@ -295,7 +311,10 @@ is not set to Both. We don’t want the field lines to integrate into the black 
 create a separate plot for the field lines above and below the black hole. For each of these plots, try setting the integrationDirection to different combinations of Forward and Backward so make
 sure the field lines integrate away from the horizon.
 
-**insert figure here**
+![alt text](img/sect_6/sect_6_bfield/grid-point.png)
+<div style="text-align: center;">
+    <p>Figure 43: Grid point seeded field lines above black hole</p>
+</div>
 
 
 Explicit examples and code that magnetic field lines seeded by particles and grid points can be
@@ -336,7 +355,15 @@ comparison, you will also need to load and define the logbsq2r scalar field. Not
 5.4, we only choose to use one of the restrictions, so only one of lines 6 and 7 or 11 and 12 should
 be used.
 
-**insert figure**
+![alt text](img/sect_6/sect_6_velocity/vec_1.png)
+<div style="text-align: center;">
+    <p>Figure 44: Restricting a vector plot of fluid velocity</p>
+</div>
+
+![alt text](img/sect_6/sect_6_velocity/vec_2.png)
+<div style="text-align: center;">
+    <p>Figure 44: Restricting a vector plot of fluid velocity</p>
+</div>
 
 Once the vector data is loaded and filtered using expressions (if desired), selection operators
 can be added to the plot to restrict the plot to a physical region. On the GUI, these can be found
@@ -361,6 +388,8 @@ In the following sections we will apply the knowledge we learned by walking thro
 taken to create visualizations from a select cases of GRMHD simulations done by the Illinois
 Relativity Group.
 
-**insert figure here**
-
+![alt text](img/sect_6/sect_6_velocity/vec_3.png)
+<div style="text-align: center;">
+    <p>Figure 45: Visualization with fluid velocity arrows</p>
+</div>
 
