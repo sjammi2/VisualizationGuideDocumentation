@@ -45,7 +45,12 @@ resources through a desktop interface, allowing the users to access the VisIt GU
 successfully launching the GUI, we are introduced to the standard VisIt layout (Fig. 6).
 
 ![alt text](img/sec_4_files/4.1.0-GUI_on_launch.png)
+{: style="text-align: center;"}
+
 Figure 6: Standard VisIt Layout
+{: style="text-align: center;"}
+
+
 
 We will now walk through the steps we will need to take to make a first visualization in VisIt.
 First, download the data file test_vector.vtk to the same machine VisIt is being run on. To plot
@@ -54,8 +59,10 @@ button at the top of the left panel in the VisIt layout (Fig. 7).
 
 ![alt text](img/sec_4_files/4.1.1-GUI_open_database_0.png)
 
+{: style="text-align: center;"}
 Figure 7: Open Database in VisIt GUI
 
+{: style="text-align: center;"}
 A file explorer will open up. Navigate to where we downloaded text_vector.vtk, select the
 file, and click open. Now that the database is opened, we can create a plot. Since the sample
 database contains vector field data, we will create a vector plot. Click the Add button to bring up
@@ -63,9 +70,12 @@ a dropdown menu of all the available plots. At the bottom of the list, hover ove
 option and click test vec, which is the custom name for the vector field contained in the database that we just loaded. Then click the Draw button to create the plot
 
 ![alt text](img/sec_4_files/4.1.3-GUI_add_vector_plot.png){: style="width:45%; display:inline-block;" }
+{: style="text-align: center;"}
 ![alt text](img/sec_4_files/4.1.4-GUI_draw_plots.png){: style="width:45%; display:inline-block;" }
+{: style="text-align: center;"}
 
 Figure 8: Add vector plot and draw plot in VisIt GUI
+{: style="text-align: center;"}
 
 After clicking Draw, the plot will load before appearing in the right panel of the standard VisIt
 layout. We can click and drag the plot to change its orientation. The plot should look similar to
@@ -73,7 +83,9 @@ Fig. 9. As we can see, the vector field contained in the sample data file is a c
 that points in the +x̂ direction.
 
 ![alt text](img/sec_4_files/4.1.5-GUI_final_plot.png)
+{: style="text-align: center;"}
 Figure 9: Sample Vector Plot in VisIt GUI
+{: style="text-align: center;"}
 
 ## Interacting with VisIT CLI'
 
@@ -88,7 +100,9 @@ After doing so, the right panel of the standard VisIt layout will open, and the 
 interface will open in the terminal (Fig. 10).
 
 ![alt text](img/sec_4_files/4.2.0-CLI_on_launch.png)
+{: style="text-align: center;"}
 Figure 10: VisIt CLI Layout
+{: style="text-align: center;"}
 
 <div class="link">
 <code>>>> OpenDatabase("/path/to/test vector.vtk")</code>
@@ -145,5 +159,7 @@ if a particular visualization command might be difficult to code, as this featur
 corresponding GUI command into the CLI code.
 
 ![alt text](img/sec_4_files/guitocli.png)
+{: style="text-align: center;"}
 
 Figure 11: VisIT GUI to CLI window
+{: style="text-align: center;"}

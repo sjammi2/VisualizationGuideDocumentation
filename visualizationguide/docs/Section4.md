@@ -58,6 +58,7 @@ from an HDF5 file more effectively are listed below.
 </ol>
 
 ![alt text](img/figures/Visitguide_h5dump1.png)
+{: style="text-align: center;"}
 
 <div style="text-align: center;">
     <p>Figure 12: h5dump with contents flag (h5dmp -n)</p>
@@ -72,6 +73,9 @@ from an HDF5 file more effectively are listed below.
 </div>  
 
 ![alt text](img/figures/Visitguide_h5dump2.png)
+{: style="text-align: center;"}
+
+
 <div style="text-align: center;">
     <p>Figure 13: h5dump with header flag (h5dump -H)</p>
 </div>
@@ -83,6 +87,7 @@ from an HDF5 file more effectively are listed below.
 </ol>
 
 ![alt text](img/figures/guideh5dump-d.png)
+{: style="text-align: center;"}
 
 <div style="padding-left: 2em; line-height: 1.5;">
       Some additional flags that might prove useful in combination with the h5dump command CLI
@@ -99,6 +104,7 @@ from an HDF5 file more effectively are listed below.
 </div>
 
 ![alt text](img/figures/guide_h5lsf3.png)
+{: style="text-align: center;"}
 
 ### VTK Files
 
@@ -202,6 +208,9 @@ intermediate colors.
 </ol>
 
 ![alt text](img/figures/binarybhf1.png)
+{: style="text-align: center;"}
+
+
 <div style="text-align: center;">
     <p>Figure 14: Ray casting volume rendering of a magnetized accretion disk around a binary black hole
 system</p>
@@ -347,6 +356,8 @@ through explicitly specifying the level values themselves such using a comma-sep
 (e.g. (−2.6, −2.43, −2.32, . . .)).
 
 ![alt text](img/figures/3.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 21: Isosurface rendering of a massive accretion disk around a black hole</p>
 </div>
@@ -413,7 +424,9 @@ we can click on Draw in order to create a rendering of the data
 </ol>
 
 ![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure1.png){: style="width:45%; display:inline-block;" }
+{: style="text-align: center;"}
 ![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure2.png){: style="width:45%; display:inline-block;" }
+{: style="text-align: center;"}
 
 <div style="text-align: center;">
     <p>Figure 22: Setup for the isosurface rendering</p>
@@ -487,6 +500,8 @@ can adjust the number of isosurfaces and the values each isosurface corresponds 
 </ol>
 
 ![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure3.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 23: Adjusting pseudocolor plot attributes and isosurface operator attributes</p>
 </div>
@@ -500,6 +515,9 @@ as well as using 25 levels within the rendering process.
 </ol>
 
 ![alt text](img/section5_isosurfacerendering/isosurface_rendering_final_image.png)
+{: style="text-align: center;"}
+
+
 <div style="text-align: center;">
     <p>Figure 24: Isosurface rendering final image</p>
 </div>
@@ -533,26 +551,37 @@ You are encouraged to explore some of the settings to see how they affect the pl
 </div>
 
 ![alt text](img/sec_5_vector_files/5.2.3.0-vector_attributes.png)
+{: style="text-align: center;"}
+
+
 <div style="text-align: center;">
     <p>Figure 25: VisIt GUI vector attributes</p>
 </div>
 
 ![alt text](img/sec_5_vector_files/5.2.3.1-vector-glyphs.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 26: Vector Glyph attributes</p>
 </div>
 
 ![alt text](img/sec_5_vector_files/5.2.3.2-vector-data.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 27: Vector data and vectors attributes</p>
 </div>
 
 ![alt text](img/sec_5_vector_files/5.2.3.3-vector_vectors.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 27: Vector data and vectors attributes</p>
 </div>
 
 ![alt text](img/sec_5_vector_files/5.2.3.4-final_plot.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 28: VisIt GUI vector field plot</p>
 </div>
@@ -632,6 +661,8 @@ navigate to: Pseudocolor → operators → IntegralCurve → vec field (Fig. 29)
 
 
 ![alt text](img/sec_5_streamline_files/5.2.4.0-add_streamline.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 29: Adding a streamline plot</p>
 </div>
@@ -661,16 +692,22 @@ attribute equal to
 </div>
 
 ![alt text](img/sec_5_streamline_files/5.2.4.1-integralcurve_atts.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 30: Integral Curve Attributes</p>
 </div>
 
 ![alt text](img/sec_5_streamline_files/5.2.4.1-integralcurve_atts1.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 30: Integral Curve Attributes</p>
 </div>
 
 ![alt text](img/sec_5_streamline_files/5.2.4.2-final-plot.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 31: Example Streamline Plot</p>
 </div>
@@ -761,6 +798,8 @@ simulation data we will want to visualize. To address this need within scientifi
 allows us to create mathematical expressions from database variables.
 
 ![alt text](img/section5_expressionscorrelations/expressionsandcorrelationsfigure1.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 32: Expression window within VisIt</p>
 </div>
@@ -787,6 +826,8 @@ can write the expression as seen within Fig. 33. After doing so, we use this var
 
 
 ![alt text](img/section5_expressionscorrelations/expressionsandcorrelationsfigure3.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 33: Set up for log ρ expression</p>
 </div>
@@ -805,6 +846,8 @@ new scalar expressions of these databases after they have been cast onto the Car
 
 
 ![alt text](img/section5_expressionscorrelations/expressionsandcorrelationfigure4.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 34: Isosurface rendering of log(ρ) - sample density</p>
 </div>
@@ -825,11 +868,15 @@ field, we create a new Vector mesh variable. We name it Bvec and input {Bx, By, 
 definition. The expressions for Bx and Bvec are shown in Fig.
 
 ![alt text](img/sec_5_expressions/vec_2.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 35: Creating a vector expression from scalar HDF5 databases</p>
 </div>
 
 ![alt text](img/sec_5_expressions/vec_1.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 35: Creating a vector expression from scalar HDF5 databases</p>
 </div>
@@ -865,6 +912,8 @@ the color table which gives us finer control over the opacity of the isosurfaces
 how the colors are smoothed into each other.
 
 ![alt text](img/sect_5_export/5.4.1-ct_atts.png)
+{: style="text-align: center;"}
+
 <div style="text-align: center;">
     <p>Figure 36: Creating color tables</p>
 </div>
