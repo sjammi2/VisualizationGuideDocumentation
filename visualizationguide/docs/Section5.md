@@ -1,5 +1,6 @@
 # Typical VisIT Workflow in Numerical Relativity
-n this section, we will go over some typical plots you might want to make when visualizing numerical
+
+In this section, we will go over some typical plots you might want to make when visualizing numerical
 relativity datasets. Specifically, we will cover general methods that apply to all types of astrophysical
 systems before going more in-depth with examples after this section.
 We will cover how we visualize black holes and their spin vectors, fluid density fields, fluid
@@ -7,7 +8,9 @@ velocity fields, and magnetic fields. The raw data that we use, have been genera
 GRMHD code. Three-dimensional HDF5 data can be loaded directly into VisIt, however, some
 plots will require some preprocessing before they can visualized in VisIt. In these cases, we will
 explain how we process simulation output into something that VisIt can use.
+
 ## Black Holes and Spin Vectors
+
 Black holes form an integral component for numerical relativity simulations and being able to plot
 them successfully is often a good first check for testing one’s visualization software. The first thing
 to do is to preprocess the simulation output into .3d files that can be used by VisIt.
@@ -22,48 +25,115 @@ some other code, you will need a horizon finder that outputs a list of points on
 To visualize these points, we want to create a .3d file containing data for a constant scalar field. If
 the points we are interested in from the .gp file are (xi, yi, zi) with i ∈ {1, 2, . . . , n} then the
 .3d file we want to create will look like
-**insert code listing**
 
-his creates a constant scalar field with some value (here we choose 0) that is only defined at
+```vtk
+1 x y z bh1p
+2 x1 y1 z1 0
+3 x2 y2 z2 0
+4 ...
+5 xn yn zn 0
+```
+<code>bh1.3d</code>
+{: style="text-align: center;"}
+
+This creates a constant scalar field with some value (here we choose 0) that is only defined at
 points on the black hole horizon. From these, we can visualize the black hole by connecting these
 points to form a surface in VisIt and then choosing a color table that maps the value 0 to black.
+
 To visualize this file, the first thing we need to do is to enable the Delaunay operator, which creates a closed surface from our list of points. This operator is disabled by default in VisIt and the
-only way to enable it is through the GUI. To do this, navigate to Plugin Manager in the Options
-dropdown menu. Then check the box next to Delaunay in the Operators before clicking Apply.
+only way to enable it is through the GUI. To do this, navigate to <b>Plugin Manager</b> in the <b>Options</b>
+dropdown menu. Then check the box next to <b>Delaunay</b> in the <b>Operators</b> before clicking <b>Apply</b>.
 Now, the option will be enabled for your account on the machine you are using. If another user is
 using VisIt, they will need to also enable this option. Additionally, if we use a different machine, we
 will need to enable this option. We will not need to enable this option every time we launch VisIt on
 a given machine, so once we enable it on the GUI, we can access the operator normally in the CLI.
+
 After these steps, plotting the black hole is quite simple. The actual plot we use in VisIt is the
 pseudocolor plot, which we then apply the Delaunay operator to. First, load the .3d file, then add
 the pseudocolor plot and apply the Delaunay operator. Finally, choose a color table that maps the
 value we have chosen for our constant field to black. In our case, the gray color table maps 0 to
 black. After talking about the optional spin vector, we will provide a script that does the above
 plotting.
+
 To visualize the spin vector of the black hole, we will need a diagnostic file that lists the three
 components of the black hole angular momentum (Jx, Jy, Jz ) at each time. To actually visualize the
-spin vector, we will use a rather “hacky” method involving the Vector plot. Since VisIt doesn’t
+spin vector, we will use a rather “hacky” method involving the <b>Vector</b> plot. Since VisIt doesn’t
 allow us to place vectors by hand, we will create a constant vector field using a .vtk file and then
 restrict the plot to a small area around the black hole. The spin vec.vtk file looks like
-**insert code listing here**
+
+```vtk
+1 # vtk DataFile Version 2.0
+2 spin_vector
+3 ASCII
+4 DATASET STRUCTURED_POINTS
+5 DIMENSIONS 3 3 3
+6 ORIGIN -30 -30 -30
+7 SPACING 30 30 30
+8 POINT_DATA 27
+9 VECTORS spinvec float
+10 Jx Jy Jz
+11 Jx Jy Jz
+12 ...
+```
+<code>spin vec.vtk</code>
+{: style="text-align: center;"}
+
 where the Jx Jy Jz line is repeated a total of 27 times (since in this .vtk file, we are specifying
 a vector field on a 3 × 3 × 3 grid). This essentially creates a uniform vector field with the chosen
 values in the region x, y, z ∈ (−30, 30). To plot only one vector on the black hole, you will first need
 the “center of mass” (x0, y0, z0) of the black hole, which you can get by averaging all the points in
 the .3d file.
+
 To plot the vector in VisIt, open this spin vec.vtk file and add a vector plot. In the vector set-
-tings (PlotAtts → Vector), select Uniformly located throughout mesh for Vector placement
-in the Vectors tab. Set Color to Constant and select your desired color in the Data tab. Finally,
-turn off Autoscale and select your desired scale in the Glyphs tab. Next, add the Box operator
-to the Vector plot. In the box operator settings (OpAtts → Selection → Box), select Some for
-Amount of cell in the range and set the x, y, z limits to (x0, y0, z0) ± (0.0005, 0.0005, 0.0005).
+tings (<b>PlotAtts</b> → <b>Vector</b>), select <b>Uniformly located throughout mesh</b> for <b>Vector placement</b>
+in the <b>Vectors</b> tab. Set <b>Color</b> to <b>Constant</b> and select your desired color in the <b>Data</b> tab. Finally,
+turn off Autoscale and select your desired scale in the <b>Glyphs</b> tab. Next, add the Box operator
+to the Vector plot. In the box operator settings (<b>OpAtts</b> → <b>Selection</b> → <b>Box</b>), select <b>Some</b> for
+<b>Amount of cell in the range</b> and set the x, y, z limits to (x0, y0, z0) ± (0.0005, 0.0005, 0.0005).
 We choose these numbers based on the grid resolution. This way, only a single vector is plotted at
 the center of the box. Below is code that will plot a black hole and its spin vector and you can see
 the result in Fig. 40.
 
-**insert code listing here**
+```vtk
+1 from visit import *
+2
+3 x0, y0, z0 = 0., 0., 0. #center of mass of black hole
+4 OpenDatabase("/path/to/bh1.3d")
+5 OpenDatabase("/path/to/spinvec.vtk")
+6 ActivateDatabase("/path/to/bh1.3d")
+7 AddPlot("Pseudocolor", "bh1p") #plot index 0
+8 ActivateDatabase("/path/to/spinvec.vtk")
+9 AddPlot("Vector", "spinvec") #plot index 1
+10 SetActivePlots(0) #only apply options/operators to bh1 plot
+11 Pseudo = PseudocolorAttributes(); Pseudo.colorTableName = "gray"
+12 SetPlotOptions(Pseudo)
+13 AddOperator("Delaunay")
+14 SetActivePlots(1) #only apply options/operators to spinvec plot
+15 Vec = VectorAttributes(); Vec.glyphLocation = Vec.UniformInSpace
+16 Vec.autoScale = 0; Vec.scale = 110; Vec.colorByMag = 0 #constant color
+17 Vec.vectorColor = (0, 255, 0, 255) #green
+18 SetPlotOptions(Vec)
+19 AddOperator("Box")
+20 BoxAtts = BoxAttributes()
+21 BoxAtts.minx = x0 - 0.0005; BoxAtts.maxx = x0 + 0.0005
+22 BoxAtts.miny = y0 - 0.0005; BoxAtts.maxy = y0 + 0.0005
+23 BoxAtts.minz = z0 - 0.0005; BoxAtts.maxz = z0 + 0.0005
+24 SetOperatorOptions(BoxAtts)
+25 a = AnnotationAttributes()
+26 a.backgroundMode = a . Solid; a.backgroundColor = (155, 155, 155, 255)
+27 SetAnnotationAttributes(a)
+28 c = View3DAttributes()
+29 c.viewNormal = (0.5, -1, 0); c.imageZoom = 300; c.viewUp = (0, 0, 1)
+30 SetView3D(c)
+31 s = SaveWindowAttributes()
+32 s.format = s.PNG; s.outputToCurrentDirectory = 1
+33 s.fileName = "/path/to/output"
+34 SetSaveWindowAttributes(s)
+35 DrawPlots(); SaveWindow()
+```
+Plotting a black hole with a spin vector
+{: style="text-align: center;"}
 
-**insert figure**
 ![alt text](img/sect_6/sect_6_blackholes/6.1-BH_spinvec.png)
 <div style="text-align: center;">
     <p>Figure 40: A tilted black hole with its spin vector. The black ellipse is the apparent horizon.</p>
@@ -74,8 +144,9 @@ the result in Fig. 40.
 
 A core aspect of numerical relativity simulations are the fluid dynamics of the system. Therefore,
 accurately plotting the behavior of the fluid is critical to gaining insight into the simulation’s evolution.
-To plot the fluid density, we either use the Isosurface operator applied to the Pseudocolor plot
-(Sec. 4.2.2) or the Volume plot (Sec. 4.2.1).
+To plot the fluid density, we either use the <b>Isosurface</b> operator applied to the <b>Pseudocolor</b> plot
+(Sec. 4.2.2) or the <b>Volume</b> plot (Sec. 4.2.1).
+
 In this section, we will focus on how to use these rendering techniques to best showcase numerical
 relativity data. The Illinois GRMHD code outputs the fluid density data as HDF5 scalar data
 named rho b. When plotting this data, we will first consider the color table. The color table is
@@ -84,17 +155,34 @@ neutron stars—will look like in the final visualization. By choosing the color
 color assigned to each density value. When choosing a color table, the goal (aside from aesthetics)
 is to be able to differentiate between different density values in the final image. Refer to Sec. 4.2.2,
 Sec. 4.4 for information related to creating and exploring a color table.
+
 Once we have a color table, it is then processed by VisIt through another .xml file, which contains
 information on how the pseudocolor will be plotted onto the data within the visualization, as seen be-
 low. A full example of the pseudocolor XML file can be found at <a href="https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_5/rho_pseudo.xml"><code>VisIt-Guide/sec 5/rho_pseudo.xml</code></a>
 
-**insert code listing**
+```vtk
+1 <?xml version="1.0"?>
+2 <Object name="PseudocolorAttributes">
+3 <Field name="minFlag" type="bool">true</Field>
+4 <Field name="min" type="double">-4</Field>
+5 <Field name="maxFlag" type="bool">true</Field>
+6 <Field name="max" type="double">-0.001</Field>
+7 <Field name="colorTableName" type="string">bhbhdisk</Field>
+8 <Field name="opacityType" type="string">ColorTable</Field>
+9 <Field name="opacityVariable" type="string">logrho</Field>
+10 <Field name="opacityVarMin" type="double">-4</Field>
+11 <Field name="opacityVarMax" type="double">-0.001</Field>
+12 ...
+13 </Object>
+```
+<code>rho_pseudo.xml</code>
+{: style="text-align: center;"}
 
 There are several interesting attributes to be aware of within this xml file, as they will directly
 influence the resultant visualization. Starting from the top of the xml file, the min and max fields
 directly correspond to the maximum and minimum values in which the colorbar will interpolate its
 values as mentioned above. The colorTableName field refers to the color table that VisIt will use
-within its pseudoplots as found within the /home/USERNAME /.VisIt directory. The opacityType
+within its pseudoplots as found within the /home/<i>USERNAME</i>/.VisIt directory. The opacityType
 field corresponds to where VisIt will pull the opacity value mapping within the modeling process.
 Generally speaking, the minFlag, maxFlag, opacityVarMinFlag, opacityVarMaxFlag fields should
 be set to False; however it can also provide useful information during the visualization development
@@ -104,7 +192,21 @@ process.
 During the isosurface rendering process, there are different considerations one needs to take into
 account. The following is an example of an XML that controls the configuration surrounding the
 isosurface rendering operator:
-**insert code listing**
+
+```vtk
+1 <?xml version="1.0"?>
+2 <Object name="IsosurfaceAttributes">
+3 <Field name="contourNLevels" type="int">21</Field>
+4 <Field name="contourValue" type="doubleVector">-2.6
+5 -2.5 -2.4 -2.3 -2.2 -2.1 -2.0 -1.9 -1.8 -1.7 -1.6 -1.5
+6 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6</Field>
+7 <Field name="contourPercent" type="doubleVector">0.1</Field>
+8 <Field name="contourMethod" type="string">Value</Field>
+9 <Field name="variable" type="string">logrho</Field>
+10 ...
+```
+<code>iso.xml</code>
+{: style="text-align: center;"}
 
 The first field parameter to note in this xml file is the contourMethod field. Essentially building
 off the concepts discussed within Sec. 4.2.2, this field parameter lets VisIt know what method
@@ -122,10 +224,44 @@ tasks. Experimenting to understand the limits of the high performance computing 
 to the efficiency in the visualization tasks. Knowing exactly how long a visualization might take to
 complete as well as the resources used within the visualization process is especially important to
 the visualization process.
+
 We lay out the VisIt-CLI code for creating and loading up isosurface and pseudocolor attribute
 files shown within the following python script:
 
-**insert code listing**
+```vtk
+1 from visit import *
+2
+3 # plotting density data with isosurface rendering
+4
+5
+6 #adding the pseudocolorplot
+7 # loading the density data into visit
+8 densityplot = ActivateDatabase(Path_to_Density_data)
+9
+10 #loading up the pseudocolorplot xml settings into the plot
+11 #-> GUI equivilant to changing the Pseudocolor plot settings
+12 #through the dropdown menu
+13 LoadAttribute(Path_to_Pseudocolor_plot_xmlfile, densityplot)
+14
+15 # adding the pseudocolor plot
+16 AddPlot("Pseudocolor", "density")
+17 SetActivePlots(plot_idxs.index("density"))
+18 #loading up plotting data
+19 SetPlotOptions(densityplot)
+20
+21 # Adding the Isosurface operator
+22
+23 #loading in the isosurface operator
+24 iso = IsosurfaceAttributes()
+25 #adding isosurface operator settings
+26 LoadAttribute(Path_to_iso_xml, iso)
+27 #adding operator to plot
+28 AddOperator("Isosurface")
+29 #making sure the plot has the operator xml settings
+30 SetOperatorOptions(iso)
+```
+Code Listing 5.2.1:<code>plot_density_isosurface.py</code>
+{: style="text-align: center;"}
 
 
 ### Volume
@@ -134,7 +270,24 @@ Similar to the isosurface rendering plot, the volume rendering plot is also prim
 through the volume rendering xml settings in Sec. 4.2.1. The following is an example xml file that
 controls the volume rendering plot configurations:
 
-**insert code listing**
+```vtk
+1 <?xml version="1.0"?>
+2 <Object name="VolumeAttributes">
+3 <Field name="legendFlag" type="bool">false</Field>
+4 <Field name="lightingFlag" type="bool">false</Field>
+5 <Field name="opacityAttenuation" type="float">1</Field>
+6 <Field name="samplesPerRay" type="int">1000</Field>
+7 <Object name="colorControlPoints">
+8 <Object name="ColorControlPointList">
+9 <Object name="ColorControlPoint">
+10 <Field name="colors" type="unsignedCharArray"
+11 length="4"> 255 255 255 255 </Field>
+12 <Field name="position" type="float">0</Field>
+13 </Object>
+14 ...
+```
+<code>iso.xml</code>
+{: style="text-align: center;"}
 
 Breaking down the important attributes of this xml file, there are several important field
 parameters and considerations to make during the visualization development process. As mentioned
@@ -151,20 +304,41 @@ the disk at the cost of computational intensity within the visualization. Genera
 be useful to adjust the colorbar and viewing angle through different rendering techniques before
 experimenting with the volume renderings in order to understand how different iterations of the
 visualization may appear.
+
 We use the volume attributes as shown in the volume rendering section.
 
-**insert code listing here**
+```vtk
+1 from visit import *
+2
+3
+4 # volume rendering in VisIT
+5
+6 #loading in the density data into VisIT
+7 ActivateDatabase(path_to_density_data)
+8 #creating an instance where we could set the volume attributes
+9 density_atts = VolumeAttributes()
+10 #loading in our xml settings for the density attributes
+11 LoadAttribute(path_to_volume_xml_file, density_atts)
+12 #creating a volume plot with the logrho variable
+13 AddPlot("Volume", "logrho")
+14 SetActivePlots(plot_idxs.index("density"))
+15 #making sure the volume plot has the proper settings
+16 SetPlotOptions(rho_atts)
+```
+Code Listing 5.2.2:<code>plot_density_volume.py</code>
+{: style="text-align: center;"}
 
 
 
 ## Magnetic Field Lines
 
 Streamlines (or integral curves) are the plots that we use to visualize the magnetic field in GRMHD
-simulation data. This is because the IntegralCurve plot allows you to specify the exact locations
+simulation data. This is because the <b>IntegralCurve</b> plot allows you to specify the exact locations
 of the seed points from which VisIt will integrate. The general information pertaining to the
-IntegralCurve plot, such as the important attributes, can be found in section 4.2.4. This section
+<b>IntegralCurve</b> plot, such as the important attributes, can be found in section 4.2.4. This section
 will instead focus on how to choose seed points to create magnetic field lines that reveal important
 physics in the simulation data.
+
 The Illinois GRMHD code outputs the magnetic field data as three HDF5 scalar fields Bx, By,
 Bz. To combine these into a vector field in VisIt, follow the directions in section 4.3. Similarly, the
 process of drawing field lines is the same as specified in section 4.2.4. We use two methods to draw
@@ -173,7 +347,7 @@ magnetic field lines: particle seeds and grid seeds.
 
 ### Particle Seeds
 
-n GRMHD magnetic field lines are attached to particles of matter (i.e. the field lines are ”frozen
+In GRMHD magnetic field lines are attached to particles of matter (i.e. the field lines are ”frozen
 in” to the matter particles). Whenever a particle of matter moves, then the magnetic field line
 should move with it. For example, the magnetic field lines in a magnetized rotating neutron star
 would rotate with the star. The Illinois GRMHD code keeps track of the x, y, and z positions
@@ -181,6 +355,7 @@ of a selected group of n fluid particles (n is usually chosen to be between 1000
 i=1. These locations are tracked by integrating an initial set of
 particles {(xi(0), yi(0), zi(0))}n
 i=1 along the fluid velocity field.
+
 In order to visualize a magnetic field line that follows the motion of the fluid—as it should—we
 use the locations of particles as seed points for our magnetic field lines. The simulation outputs the
 positions of n particles at all times {(xi(t), yi(t), zi(t))}n
@@ -198,11 +373,7 @@ present in the binary system. Then at t/M=696, notice how the magnetic field lin
 from within the two neutron stars. If we don’t use particle seeds to seed magnetic field lines here,
 then the visualized magnetic fields wouldn’t follow the neutron stars as they inspiral.
 
-**insert figure here**
 ![alt text](img/sect_6/sect_6_bfield/nsns-particle_0.png)
-<div style="text-align: center;">
-    <p>Figure 41: Particle seeded field lines in binary neutron stars</p>
-</div>
 
 ![alt text](img/sect_6/sect_6_bfield/nsns-particle_1.png)
 <div style="text-align: center;">
@@ -220,6 +391,7 @@ spin/magnetic-field axis. For example, each neutron star in the binary neutron s
 rings of points that lie in the xy-plane, which is orthogonal to the magnetic field axis. On the left
 panel of Fig. 41, the collection of smaller magnetic field line loops close to each neutron are created
 by a ring of points inside the neutron star with a larger radius. The field lines that extend further from the stars are created by a ring of points inside the neutron star with a smaller radius.
+
 Choosing the seed point rings that create nice visualizations still requires experimentation. Below
 in Code Lst. 5.3.1 (which can be found at VisIt-Guide/sec_5/seed_maker.py ), we provide a
 simple Python code that can draw these types of rings. There are options to choose where the rings
@@ -227,37 +399,25 @@ are centered as well as the direction of the spin/magnetic-field axis. Below, we
 of the different parameters of this script.
 
 <ul>
-   <li><code>centers</code>: Adjusts smoothness and resolution of plot</code> 
-As mentioned before, ray casting creates the plot by shooting rays and sampling the points
-in its path. By increasing the number of samples that are being cast through the data for
-each ray, we are able to improve the overall quality of the image. Having too few sample
-points along a ray gives rise to sampling artifacts such as rings or voids and decreases the
-overall ”smoothness”. However, sampling more points takes longer to render. We observe a
-1:1 correlation between changes in image rendering time and the number of samples per ray.</li>
+   <li><code>centers</code>: Center of the compact object</code> 
+This parameter is found in line 4 of seed_maker.py. It consists of a list of 3-tuples (each
+entry is a float) where each 3-tuple is the center of the compact object you want to place field
+lines around.</li>
 
-   <li><code>centers</code>: Adjusts smoothness and resolution of plot</code> 
-As mentioned before, ray casting creates the plot by shooting rays and sampling the points
-in its path. By increasing the number of samples that are being cast through the data for
-each ray, we are able to improve the overall quality of the image. Having too few sample
-points along a ray gives rise to sampling artifacts such as rings or voids and decreases the
-overall ”smoothness”. However, sampling more points takes longer to render. We observe a
-1:1 correlation between changes in image rendering time and the number of samples per ray.</li>
+   <li><code>pairs</code>: Radius, height pairs that describe the ring</code> 
+This parameter is found in line 5 of seed_maker.py. It consists of a list of 2-tuples (each
+entry is a float). Each 2-tuple is of the form (radius, height). The radius specifies the
+radius of the ring and the height specifies the height of the ring with respect to the spin axis.</li>
 
-   <li><code>centers</code>: Adjusts smoothness and resolution of plot</code> 
-As mentioned before, ray casting creates the plot by shooting rays and sampling the points
-in its path. By increasing the number of samples that are being cast through the data for
-each ray, we are able to improve the overall quality of the image. Having too few sample
-points along a ray gives rise to sampling artifacts such as rings or voids and decreases the
-overall ”smoothness”. However, sampling more points takes longer to render. We observe a
-1:1 correlation between changes in image rendering time and the number of samples per ray.</li>
+   <li><code>spins</code>: Axis that rings are orthogonal to</code> 
+This parameter is found in line 6 of seed_maker.py. It consists of a list of 3-tuples (each
+entry is a float) where each 3-tuple specifies the axis we want the ring of seed points to be
+orthogonal to. This axis usually coincides with the angular momentum axis (e.g. the spin axis
+of a black hole).</li>
 
-   <li><code>centers</code>: Adjusts smoothness and resolution of plot</code> 
-As mentioned before, ray casting creates the plot by shooting rays and sampling the points
-in its path. By increasing the number of samples that are being cast through the data for
-each ray, we are able to improve the overall quality of the image. Having too few sample
-points along a ray gives rise to sampling artifacts such as rings or voids and decreases the
-overall ”smoothness”. However, sampling more points takes longer to render. We observe a
-1:1 correlation between changes in image rendering time and the number of samples per ray.</li>
+   <li><code>num_seeds_per_ring:</code>: Number of seeds per ring</code> 
+This parameter is found in line 7 of seed_maker.py. It consists of a list of integers that specify
+the number of seeds in each ring</li>
 
 
    <li><code>centers</code>: Adjusts smoothness and resolution of plot</code> 
@@ -268,16 +428,55 @@ points along a ray gives rise to sampling artifacts such as rings or voids and d
 overall ”smoothness”. However, sampling more points takes longer to render. We observe a
 1:1 correlation between changes in image rendering time and the number of samples per ray.</li>
 
-   <li><code>centers</code>: Adjusts smoothness and resolution of plot</code> 
-As mentioned before, ray casting creates the plot by shooting rays and sampling the points
-in its path. By increasing the number of samples that are being cast through the data for
-each ray, we are able to improve the overall quality of the image. Having too few sample
-points along a ray gives rise to sampling artifacts such as rings or voids and decreases the
-overall ”smoothness”. However, sampling more points takes longer to render. We observe a
-1:1 correlation between changes in image rendering time and the number of samples per ray.</li>
+   <li><code>offsets</code>: An angle to offset the seed placement</code> 
+This parameter is found in line 8 of seed_maker.py. It consists of a list of floats. These
+numbers specify an offset in the position of the individual points on the ring. Adding an offset
+of π would rotate the points on the ring by 180◦.</li>
+
+   <li><code>reflectZ</code>: Reflect seeds across equatorial plane</code> 
+Turning on this parameter reflects all the seeds across the equatorial plane. This equatorial
+plane is the plane orthogonal to the spin axis.</li>
 </ul>
 
-**Code Listing**
+```vtk
+1 import numpy as np
+2
+3 # centers, pairs, spins, num_seeds_per_ring must have same length
+4 centers = [(0., 0., 0.), (0., 0., 0.)] # list of 3-tuple centers (x, y, z)
+5 pairs = [(3.0, 1.), (1., 1.)] # list of 2-tuple pairs(radius, height)
+6 spins = [(0., 0., 1.), (0., 0., 1.)] # list of 3-tuple spins (Jx, Jy, Jz)
+7 num_seeds_per_ring = [8, 8] # list of ints number of seeds per ring
+8 offsets = [np.pi/8, np.pi/8] # offset in the angles of phi chosen
+9 reflectZ = True
+10
+11 with open("seeds_0.txt","w+") as f:
+12 f.write("{} {} {}\n".format("x", "y", "z"))
+13 for cen, pair, spin, num_steps, offset in zip(centers, pairs, spins,
+num_seeds_per_ring, offsets):
+14 r, h = pair
+15 spin_vec = np.array(spin); cen_vec = np.array(cen)
+16 spin_vec /= np.linalg.norm(spin_vec)
+17 u_vec = np.array([51., 50., 49.]) #random vector not parallel to
+spin
+18 u_vec /= np.linalg.norm(u_vec)
+19 #gram schmidt step
+20 u_vec = u_vec - ( np.dot(u_vec, spin_vec) / np.dot(spin_vec,
+spin_vec ))*spin_vec
+21 v_vec = np.cross(spin_vec, u_vec)
+22 for phi in np.linspace(0 + offset, 2*np.pi + offset, num_steps,
+endpoint=False):
+23 c = r*np.cos(phi); s = r*np.sin(phi)
+24 p1 = cen_vec + c*u_vec + s*v_vec + h*spin_vec
+25 f.write("{} {} {} {}\n".format(str(p1[0]), str(p1[1]), str(p1
+[2])))
+26 if reflectZ:
+27 p2 = cen_vec + c*u_vec + s*v_vec - h*spin_vec
+28 f.write("{} {} {} {}\n".format(str(p2[0]), str(p2[1]), str
+(p2[2])))
+```
+Code Listing 5.3.1<code>seed maker.py</code>
+{: style="text-align: center;"}
+
 
 ![alt text](img/sect_6/sect_6_bfield/seemaker.png)
 <div style="text-align: center;">
@@ -332,6 +531,7 @@ an incipient relativistic jet in a region that contains collimated magnetic fiel
 should be pointing in the direction of the jet. A vector plot allows us to populate the area of interest
 with many vectors pointing in the direction of the fluid velocity field. By looking at the behavior of
 these arrows, we can determine if the behavior of the fluid velocity fields matches our hypothesis.
+
 Like the magnetic field, the Illinois GRMHD code outputs the fluid velocity field data as three
 HDF5 scalar fields vx, vy, vz. By itself, the vector plot will place vectors of all magnitudes all over
 the grid. In numerical relativity, we are mostly interested in relativistic velocities in specific areas,
@@ -340,7 +540,22 @@ the arrows we are interested in. These steps are often quite involved and requir
 get them right. For this reason, we usually only make vector plots of the fluid velocity at a handful
 of interesting times, rather than for a movie of the entire evolution.
 
-**code listing**
+```vtk
+1 #combining vx, vy, vz into vector expression
+2 DefineVectorExpression("vVec_temp","{vx,vy,vz}")
+3
+4 #if magnitude(vVec_temp) > 0.5, use original data,
+5 #else, set to {0,0,0}
+6 DefineVectorExpression("vVec","if(gt(magnitude(vVec_temp), \
+7 0.5), vVec_temp, {0,0,0})")
+8
+9 # below: only show arrows where the
+10 #log(b^2/2*rho) plot is larger than -0.5
+11 DefineVectorExpression("vVec","if(gt(logbsq2r, -0.5), \
+12 vVec_temp, {0,0,0})")
+```
+Code Listing 5.4: Restricting velocity plot
+{: style="text-align: center;"}
 
 After loading in the three scalar fields and combining them into a vector expression, new
 expressions can be created. For example, vectors can be filtered out based on their magnitude. On
@@ -374,6 +589,7 @@ the plot to inside or outside a sphere, or to one side of a plane. Below, there 
 vector plot of fluid velocity data from a GRMHD simulation before and after applying expressions
 and slicing operators (Fig. 44). Specifically, all vectors with magnitude less than 0.25c were set to
 zero and the plot was restricted to inside a cylinder that lies along the vertical axis.
+
 During this process of selecting different regions with selection operators, make sure you
 are also experimenting with the different vector attribute settings. Since GRMHD simulations
 commonly use finer grids in areas around compact objects, like black holes or neutron stars, the
@@ -384,6 +600,7 @@ operators and have different settings for different regions. Below is a visualiz
 uses vector fluid velocity plots to visualize the relativistic jet following a binary black hole merger
 (Fig. 45). Explicit examples and code that visualize fluid velocity arrows can be found in the case
 studies later in the guide (see Sec. 7.4).
+
 In the following sections we will apply the knowledge we learned by walking through the steps
 taken to create visualizations from a select cases of GRMHD simulations done by the Illinois
 Relativity Group.
