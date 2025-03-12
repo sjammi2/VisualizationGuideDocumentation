@@ -55,9 +55,8 @@ seed points and the integral curve settings. Below, we provide some examples of 
 before creating a final image.
 
 ![alt text](img/magnetars/2D_plots.png)
-<div style="text-align: center;">
-    <p>Figure 46: 2D slices of a magnetar. Adapted from [9].</p>
-</div>
+Figure 46: 2D slices of a magnetar. Adapted from [9].
+{: style="text-align: center;"}
 
 ## Poloidal Field Lines
 
@@ -99,14 +98,12 @@ changes we’ve made, give us the image on the right side of Fig. 47(b).
 
 **modify two figures here**
 ![alt text](img/magnetars/pol_before.png)
-<div style="text-align: center;">
-    <p>Figure 47: Poloidal field lines with different settings.</p>
-</div>
+Figure 47: Poloidal field lines with different settings.
+{: style="text-align: center;"}
 
 ![alt text](img/magnetars/pol_after.png)
-<div style="text-align: center;">
-    <p>Figure 47: Poloidal field lines with different settings.</p>
-</div>
+Figure 47: Poloidal field lines with different settings.
+{: style="text-align: center;"}
 
 ## Toroidal Field Lines
 Since toroidal field lines integrate around the entire star (i.e. will cover all angles of ϕ), instead of
@@ -134,21 +131,18 @@ made give us the image on the right side of Fig. 48.
 
 **modify figure here**
 ![alt text](img/magnetars/tor_before.png)
-<div style="text-align: center;">
-    <p>Figure 48: Toroidal field lines with various settings.</p>
-</div>
+Figure 48: Toroidal field lines with various settings.
+{: style="text-align: center;"}
 
 ![alt text](img/magnetars/tor_after.png)
-<div style="text-align: center;">
-    <p>Figure 48: Toroidal field lines with various settings.</p>
-</div>
+Figure 48: Toroidal field lines with various settings.
+{: style="text-align: center;"}
 
 ## Final Image and Summary
 
 ![alt text](img/magnetars/final_image.png)
-<div style="text-align: center;">
-    <p>Figure 49: A magnetar with mixed poloidal and toroidal field lines.</p>
-</div>
+Figure 49: A magnetar with mixed poloidal and toroidal field lines.
+{: style="text-align: center;"}
 
 Combining the poloidal and toroidal field lines we’ve created we get the final image in Fig. 49.
 In this section, we discussed the steps taken to draw magnetic field lines with mixed poloidal

@@ -8,23 +8,20 @@ studies. We will use the following simulation output databases:
 ## Magnetic Field Lines in the Disk
 
 ![alt text](img/BHBH/2d_plot.png)
-<div style="text-align: center;">
-    <p>Figure 63: 2D xz-slice of the density data.</p>
-</div>
+Figure 63: 2D xz-slice of the density data.
+{: style="text-align: center;"}
 
 ![alt text](img/BHBH/particles_1.png)
 ![alt text](img/BHBH/particles_2.png)
-<div style="text-align: center;">
-    <p>Figure 64: Magnetic field lines inside accretion disk</p>
-</div>
+Figure 64: Magnetic field lines inside accretion disk
+{: style="text-align: center;"}
 
 
 ## Two Black Holes
 
 ![alt text](img/BHBH/2_bh_ex.png)
-<div style="text-align: center;">
-    <p>Figure 65: Plotting Two Black Holes and Spin Vectors Example</p>
-</div>
+Figure 65: Plotting Two Black Holes and Spin Vectors Example
+{: style="text-align: center;"}
 
 
 We’ve left out the num seeds per ring parameter since the best choice depends on the mass of the
@@ -37,6 +34,5 @@ cases.
 ![alt text](img/BHBH/q1.png)
 ![alt text](img/BHBH/q2.png)
 ![alt text](img/BHBH/q4.png)
-<div style="text-align: center;">
-    <p>Figure 66: Magnetic field lines around black holes in a black hole binary system.</p>
-</div>
+Figure 66: Magnetic field lines around black holes in a black hole binary system.
+{: style="text-align: center;"}

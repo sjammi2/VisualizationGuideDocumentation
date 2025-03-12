@@ -141,7 +141,7 @@ Figure 9: Sample Vector Plot in VisIt GUI
 ## Interacting with VisIT CLI
 
 We will now replicate the plot we made in the previous section using the CLI. To launch VisIt in
-CLI mode, we add the -cli flag when launching VisIt.
+CLI mode, we add the <code>-cli</code> flag when launching VisIt.
 
 ```bash
 visit -cli
@@ -167,7 +167,7 @@ After doing so, the same plot that we created in the GUI (Fig. 9) will render. A
 we can drag the plot to change its orientation.
 
 With VisIt CLI, we can also make visualizations and save them to image files without opening a
-VisIt window. To do this, we will need to launch VisIt with the -cli and the -nowin options.
+VisIt window. To do this, we will need to launch VisIt with the <code>-cli</code> and the <code>-nowin</code> options.
 
 
 ```bash
@@ -248,10 +248,10 @@ visit -cli -nowin -s run.py
 ```
 
 
-where the -s flag indicates that VisIt will use the run.py script.
+where the <code>-s</code> flag indicates that VisIt will use the <code>run.py</code> script.
 Documentation for the VisIt CLI can be found on their website and can be very helpful, but it
 is not comprehensive. Thankfully, the VisIt GUI provides a tool that converts actions taken in the
-GUI to a CLI script. In the toolbar, navigate to Controls → Command . . . which will open up
+GUI to a CLI script. In the toolbar, navigate to **Controls → Command . . .** which will open up
 a window as seen in Fig. 11. Within this window, we can start by pressing the Record button and
 performing any GUI commands. After we have completed any GUI commands that we would like
 to map onto the CLI counterparts, we can click ■ Stop and the corresponding CLI commands will be displayed within the command box within the middle of the window. If we would like to create a CLI command file in which we could automate any repetitive commands, we could use the Make

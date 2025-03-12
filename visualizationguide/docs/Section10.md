@@ -23,9 +23,8 @@ higher magnitudes. The final colorbar can be seen in Fig. 67.
 
 ![alt text](img/GWs/3D_GW_1.1.png)
 ![alt text](img/GWs/3D_GW_1.2.png)
-<div style="text-align: center;">
-    <p>Figure 67: 3D volume rendering of gravitational waves.</p>
-</div>
+Figure 67: 3D volume rendering of gravitational waves.
+{: style="text-align: center;"}
 
 For the opacity, we also want to make it symmetric about zero. Next, we want to make sufficiently
 small magnitudes transparent. If we didn’t, then the entire visualization will be dominated by values
@@ -58,15 +57,13 @@ an example of a gravitational wave movie that was created using data from a bina
 simulation.
 
 ![alt text](img/GWs/opacity_arr.png)
-<div style="text-align: center;">
-    <p>Figure 68: Volume opacity array for gravity wave 3D rendering.</p>
-</div>
+Figure 68: Volume opacity array for gravity wave 3D rendering.
+{: style="text-align: center;"}
 
 ![alt text](img/GWs/top_view.png)
 ![alt text](img/GWs/side_view.png)
-<div style="text-align: center;">
-    <p>Figure 69: Different viewing angles of 3D gravitational wave data</p>
-</div>
+Figure 69: Different viewing angles of 3D gravitational wave data
+{: style="text-align: center;"}
 
 ## Two Dimensional Contour Plot
 
@@ -81,11 +78,9 @@ applied. Optionally, we can add a Resample operator and a Cylinder operator. The
 are outlined below.
 
 ![alt text](img/GWs/2D_GW_ex.png)
-<div style="text-align: center;">
-    <p>Figure 70: Contour Plot of Gravitational Waves on the xy-Plane</p>
-</div>
+Figure 70: Contour Plot of Gravitational Waves on the xy-Plane
+{: style="text-align: center;"}
 
 ![alt text](img/GWs/2D_bound_ex.png)
-<div style="text-align: center;">
-    <p>Figure 71: Example of edges of grid being visible</p>
-</div>
+Figure 71: Example of edges of grid being visible
+{: style="text-align: center;"}

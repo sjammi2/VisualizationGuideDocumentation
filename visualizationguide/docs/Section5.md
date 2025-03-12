@@ -7,6 +7,7 @@ velocity fields, and magnetic fields. The raw data that we use, have been genera
 GRMHD code. Three-dimensional HDF5 data can be loaded directly into VisIt, however, some
 plots will require some preprocessing before they can visualized in VisIt. In these cases, we will
 explain how we process simulation output into something that VisIt can use.
+
 ## Black Holes and Spin Vectors
 Black holes form an integral component for numerical relativity simulations and being able to plot
 them successfully is often a good first check for testing one’s visualization software. The first thing
@@ -65,9 +66,8 @@ the result in Fig. 40.
 
 **insert figure**
 ![alt text](img/sect_6/sect_6_blackholes/6.1-BH_spinvec.png)
-<div style="text-align: center;">
-    <p>Figure 40: A tilted black hole with its spin vector. The black ellipse is the apparent horizon.</p>
-</div>
+Figure 40: A tilted black hole with its spin vector. The black ellipse is the apparent horizon.
+{: style="text-align: center;"}
 
 
 ## Density
@@ -200,14 +200,12 @@ then the visualized magnetic fields wouldn’t follow the neutron stars as they 
 
 **insert figure here**
 ![alt text](img/sect_6/sect_6_bfield/nsns-particle_0.png)
-<div style="text-align: center;">
-    <p>Figure 41: Particle seeded field lines in binary neutron stars</p>
-</div>
+Figure 41: Particle seeded field lines in binary neutron stars
+{: style="text-align: center;"}
 
 ![alt text](img/sect_6/sect_6_bfield/nsns-particle_1.png)
-<div style="text-align: center;">
-    <p>Figure 41: Particle seeded field lines in binary neutron stars</p>
-</div>
+Figure 41: Particle seeded field lines in binary neutron stars
+{: style="text-align: center;"}
 
 The process of choosing which particles to follow—as mentioned earlier—comes down to choosing
 which particles at t = 0 create a visualization that best showcases the physics of the system. The
@@ -280,9 +278,8 @@ overall ”smoothness”. However, sampling more points takes longer to render. 
 **Code Listing**
 
 ![alt text](img/sect_6/sect_6_bfield/seemaker.png)
-<div style="text-align: center;">
-    <p>Figure 42: Seed point rings orthogonal to spin</p>
-</div>
+Figure 42: Seed point rings orthogonal to spin
+{: style="text-align: center;"}
 
 Two rings of a specified radius are generated at a specified height above and below the plane
 orthogonal to the spin axis. As an example, in Fig. 42, four rings that lie on planes orthogonal to the spin vector of a tilted black hole are shown.
@@ -312,9 +309,8 @@ create a separate plot for the field lines above and below the black hole. For e
 sure the field lines integrate away from the horizon.
 
 ![alt text](img/sect_6/sect_6_bfield/grid-point.png)
-<div style="text-align: center;">
-    <p>Figure 43: Grid point seeded field lines above black hole</p>
-</div>
+Figure 43: Grid point seeded field lines above black hole
+{: style="text-align: center;"}
 
 
 Explicit examples and code that magnetic field lines seeded by particles and grid points can be
@@ -356,14 +352,12 @@ comparison, you will also need to load and define the logbsq2r scalar field. Not
 be used.
 
 ![alt text](img/sect_6/sect_6_velocity/vec_1.png)
-<div style="text-align: center;">
-    <p>Figure 44: Restricting a vector plot of fluid velocity</p>
-</div>
+Figure 44: Restricting a vector plot of fluid velocity
+{: style="text-align: center;"}
 
 ![alt text](img/sect_6/sect_6_velocity/vec_2.png)
-<div style="text-align: center;">
-    <p>Figure 44: Restricting a vector plot of fluid velocity</p>
-</div>
+Figure 44: Restricting a vector plot of fluid velocity
+{: style="text-align: center;"}
 
 Once the vector data is loaded and filtered using expressions (if desired), selection operators
 can be added to the plot to restrict the plot to a physical region. On the GUI, these can be found
@@ -389,7 +383,6 @@ taken to create visualizations from a select cases of GRMHD simulations done by 
 Relativity Group.
 
 ![alt text](img/sect_6/sect_6_velocity/vec_3.png)
-<div style="text-align: center;">
-    <p>Figure 45: Visualization with fluid velocity arrows</p>
-</div>
+Figure 45: Visualization with fluid velocity arrows
+{: style="text-align: center;"}
 

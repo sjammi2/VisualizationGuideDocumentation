@@ -41,28 +41,24 @@ in Sec. 4.2.2 and Sec. 4.2.1. Here we will discuss specific details regarding th
 using isosurface rendering.
 
 ![alt text](img/figures/1.png)
-<div style="text-align: center;">
-    <p>Figure 50: Isosurface zoom in of a massive BHD. At t = 0 the angular momentum of the disk is
+Figure 50: Isosurface zoom in of a massive BHD. At t = 0 the angular momentum of the disk is
 along the z axis, while the spin of the black hole (yellow arrow) is at 45◦
-from the z axis.</p>
-</div>
+from the z axis.
+{: style="text-align: center;"}
 
 ![alt text](img/figures/2.png)
-<div style="text-align: center;">
-    <p>Figure 50: Isosurface zoom in of a massive BHD. At t = 0 the angular momentum of the disk is
+Figure 50: Isosurface zoom in of a massive BHD. At t = 0 the angular momentum of the disk is
 along the z axis, while the spin of the black hole (yellow arrow) is at 45◦
-from the z axis.</p>
-</div>
+from the z axis.
+{: style="text-align: center;"}
 
 ![alt text](img/figures/3.png)
-<div style="text-align: center;">
-    <p>Figure 51: Isosurface zoom out of the massive BHD of Fig. 50</p>
-</div>
+Figure 51: Isosurface zoom out of the massive BHD of Fig. 50
+{: style="text-align: center;"}
 
 ![alt text](img/figures/4.png)
-<div style="text-align: center;">
-    <p>Figure 51: Isosurface zoom out of the massive BHD of Fig. 50</p>
-</div>
+Figure 51: Isosurface zoom out of the massive BHD of Fig. 50
+{: style="text-align: center;"}
 
 Starting with the shells, the number amount of them and their distribution across the data play a
 vital role in what information is highlighted within the visualization. Within this simulation, there is
@@ -73,31 +69,26 @@ the fluid dynamics across the evolution. In the same light, the following parame
 characteristics to be considered in order to maximize the information communicated:
 
 ![alt text](img/figures/runsingle_colorbandszoomin.png)
-<div style="text-align: center;">
-    <p>Figure 52: Black hole-disk visualization using a limited color table.</p>
-</div>
+Figure 52: Black hole-disk visualization using a limited color table.
+{: style="text-align: center;"}
 
 ![alt text](img/figures/nlevels5.png)
-<div style="text-align: center;">
-    <p>Figure 53: Black hole-disk visualization with improved color table.</p>
-</div>
+Figure 53: Black hole-disk visualization with improved color table.
+{: style="text-align: center;"}
 
 ## Volume Rendering of Disk
 
 ![alt text](img/BHDISK/baseimage_volumerendering_bhd.png)
-<div style="text-align: center;">
-    <p>Figure 54: Base image of the BHD through volume rendering</p>
-</div>
+Figure 54: Base image of the BHD through volume rendering
+{: style="text-align: center;"}
 
 ![alt text](img/BHDISK/freeformopacityexplainer.png)
-<div style="text-align: center;">
-    <p>Figure 55: Distribution of freeformOpacity values</p>
-</div>
+Figure 55: Distribution of freeformOpacity values
+{: style="text-align: center;"}
 
 ![alt text](img/BHDISK/bhd_volrendering.png)
-<div style="text-align: center;">
-    <p>Figure 56: Final image of the BHD with volume rendering</p>
-</div>
+Figure 56: Final image of the BHD with volume rendering
+{: style="text-align: center;"}
 
 
 ## Magnetic Field Lines around the Black Hole
@@ -105,14 +96,12 @@ characteristics to be considered in order to maximize the information communicat
 ![alt text](img/BHDISK/jet/0.2-1.8.png)
 ![alt text](img/BHDISK/jet/0.6-1.1.png)
 ![alt text](img/BHDISK/jet/0.5-1.6.png)
-<div style="text-align: center;">
-    <p>Figure 57: Finding proper grid seeds for BHD magnetic field lines</p>
-</div>
+Figure 57: Finding proper grid seeds for BHD magnetic field lines
+{: style="text-align: center;"}
 
 
 ## Visualizing a Relativistic Jet
 
 ![alt text](img/BHDISK/jet/JETT.png)
-<div style="text-align: center;">
-    <p>Figure 58: BHD jet with volume plot of log</p>
-</div>
+Figure 58: BHD jet with volume plot of log
+{: style="text-align: center;"}

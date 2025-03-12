@@ -19,15 +19,13 @@ hole formation and post-black hole formation.
 
 ![alt text](img/NSNS/NSNS_seed.png)
 ![alt text](img/NSNS/NSNS_field-lines.png)
-<div style="text-align: center;">
-    <p>Figure 59: Particle seeded magnetic field lines in a binary neutron star.</p>
-</div>
+Figure 59: Particle seeded magnetic field lines in a binary neutron star.
+{: style="text-align: center;"}
 
 ![alt text](img/NSNS/evolution-1.png)
 ![alt text](img/NSNS/evolution-2.png)
-<div style="text-align: center;">
-    <p>Figure 60: Evolution of binary neutron star with particle field lines.</p>
-</div>
+Figure 60: Evolution of binary neutron star with particle field lines.
+{: style="text-align: center;"}
 
 The remnant hypermassive neutron star will eventually (sometimes immediately) collapse into a black hole. After the neutron star collapses into a black hole, there are some things we must change in our visualizations.
 
@@ -37,14 +35,12 @@ The remnant hypermassive neutron star will eventually (sometimes immediately) co
 ![alt text](img/NSNS/colorbar-2.png)
 ![alt text](img/NSNS/colorbar-3.png)
 ![alt text](img/NSNS/gridptsNSNS.png)
-<div style="text-align: center;">
-    <p>Figure 61: Changes made after black hole formation</p>
-</div>
+Figure 61: Changes made after black hole formation
+{: style="text-align: center;"}
 
 ## Additional Plots After Merger
 
 ![alt text](img/NSNS/NSNS_bsq2r.png)
 ![alt text](img/NSNS/NSNS_vector.png)
-<div style="text-align: center;">
-    <p>Figure 62: Additional plots to confirm the existence of an incipient jet</p>
-</div>
+Figure 62: Additional plots to confirm the existence of an incipient jet
+{: style="text-align: center;"}

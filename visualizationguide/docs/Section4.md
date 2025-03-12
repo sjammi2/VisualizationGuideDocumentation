@@ -31,28 +31,32 @@ manipulate large amounts of data. In numerical relativity, outputting the variab
 in visualizing often requires terabytes of data, which is why we use the HDF5 file format for the
 simulation output. Additionally, HDF5 has multi-threading support, which allows us to leverage
 parallel processing to speed up the scientific visualization process.
+
+
 HDF5 organizes data in two ways: groups and datasets. Groups can be thought of as links
 between data objects, such as a directory file structure that connects folders together. Datasets are
 packages of raw data that the file contains with additional information describing the data itself.
 The HDF5 data that the Illinois GRMHD code [4] outputs for visualization, stores datasets.
 Since outputting HDF5 data is done by the evolution code, we will not discuss how to generate
 HDF5 files. However, we will go over how to view the contents and structure of HDF5 files. We
-provide a sample HDF5 file that can be found at VisIt-Guide/sec_4/Bx.file_0.h5. This file is
+provide a sample HDF5 file that can be found at [VisIt-Guide/sec_4/Bx.file_0.h5](https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_4/Bx.file_0.h5). This file is
 just 1 out of 128 separate files that together contain data for the x component of the magnetic field
 at a couple of times.
+
+
 While working with HDF5 data, there are two command line tools that are especially useful to
-know, h5ls and h5dump, which can be used to view the h5 data. The command h5dump displays the
+know, <code>h5ls</code> and <code>h5dump</code>, which can be used to view the h5 data. The command <code>h5dump</code> displays the
 content of the HDF5 file. When executed with no options, this command displays (dumps) all of
 the raw data in the terminal. Several useful options that can allow the user to extract information
 from an HDF5 file more effectively are listed below.
 
 <ol>
     <li>
-        <strong>Viewing file contents:</strong> With the -n or -contents flag after the h5dump command (Fig. 12),
+        <strong>Viewing file contents:</strong> With the -n or -contents flag after the <code>h5dump</code> command (Fig. 12),
         we can list all of the data stored in the h5 file, which can be especially useful when trying to
         pick up minute pieces of information quickly from the file. Additionally, we are able to view
         the headers or titles of the data with corresponding information through the -H or -header
-        flag after the h5dump command (Fig. 13), which can be used to extract specific details about
+        flag after the <code>h5dump</code> command (Fig. 13), which can be used to extract specific details about
         the datasets themselves, such as their attributes and data types.
     </li>
 </ol>
@@ -60,14 +64,13 @@ from an HDF5 file more effectively are listed below.
 ![alt text](img/figures/Visitguide_h5dump1.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 12: h5dump with contents flag (h5dmp -n)</p>
-</div>
+Figure 12: <code>h5dump</code> with contents flag (h5dump -n)
+{: style="text-align: center;"}
 
 <div style="padding-left: 2em; line-height: 1.5;">
-   Similarly, the h5ls command can be used to display data stored within the groups and datasets
-   recursively. The output of h5ls is often more streamlined than the output of h5dump. When
-   the -v flag is used with the h5ls command, the different properties of the dataset such as the
+   Similarly, the<code>h5ls</code> command can be used to display data stored within the groups and datasets
+   recursively. The output of<code>h5ls</code> is often more streamlined than the output of <code>h5dump</code>. When
+   the -v flag is used with the<code>h5ls</code> command, the different properties of the dataset such as the
    storage capacity, file contents, and attributes are shown, providing a more detailed snapshot
    of the HDF5 file.
 </div>  
@@ -76,13 +79,12 @@ from an HDF5 file more effectively are listed below.
 {: style="text-align: center;"}
 
 
-<div style="text-align: center;">
-    <p>Figure 13: h5dump with header flag (h5dump -H)</p>
-</div>
+Figure 13: <code>h5dump</code> with header flag (h5dump -H)
+{: style="text-align: center;"}
 
 <ol start="2">
     <li>
-        <strong>Viewing datasets/groups:</strong> If we want to view the datasets or groups in an HDF5 file, we can use the -d "Dataset Name" or -g "Group Name" flag with the h5dump command. These flags allow us to analyze specific components of the data that we are interested as well as the raw data stored within the dataset.
+        <strong>Viewing datasets/groups:</strong> If we want to view the datasets or groups in an HDF5 file, we can use the -d "Dataset Name" or -g "Group Name" flag with the <code>h5dump</code> command. These flags allow us to analyze specific components of the data that we are interested as well as the raw data stored within the dataset.
 </li>
 </ol>
 
@@ -90,16 +92,16 @@ from an HDF5 file more effectively are listed below.
 {: style="text-align: center;"}
 
 <div style="padding-left: 2em; line-height: 1.5;">
-      Some additional flags that might prove useful in combination with the h5dump command CLI
-      tool might be the -A 0 flag, which suppresses attributes when displaying data from the h5 file
+      Some additional flags that might prove useful in combination with the <code>h5dump</code> command CLI
+      tool might be the <code>-A 0</code> flag, which suppresses attributes when displaying data from the h5 file
       and simplifies the output quite a bit. We could also index specific datasets or groups that
-      have specific additions through the -N PATH flag, which matches any object within the h5 file
+      have specific additions through the <code>-N PATH</code> flag, which matches any object within the h5 file
       the another object or attribute at a specific path. 
 </div>
 
 <div style="padding-left: 2em; line-height: 1.5;">
-   Within the h5ls CLI tool, we can index specific datasets by simply adding the path of the
-   dataset within the h5 file. The -d or -data flag can be used in combination with the h5ls
+   Within the<code>h5ls</code> CLI tool, we can index specific datasets by simply adding the path of the
+   dataset within the h5 file. The <code>-d</code> or <code>-data</code> flag can be used in combination with the<code>h5ls</code>
    command in order to display the corresponding data within the specific dataset of the h5 file.
 </div>
 
@@ -109,61 +111,81 @@ from an HDF5 file more effectively are listed below.
 ### VTK Files
 
 Another important data type used in these simulations are Visualization ToolKit (VTK) files. VTK
-files are ASCII or binary files that can easily be generated using Python scripts or similar methods.
+files are <code>ASCII</code> or binary files that can easily be generated using Python scripts or similar methods.
 The VTK file format is versatile and allows users to convert a database to be plotted in VisIt. VTK
 files can store scalar, vector, or tensor data on 2D or 3D grids. We break the VTK file format down
 into six sections.
 
 <ol>
-   <li><u>Header:</u>The header is the first line of a VTK file and contains the file version and identifier.
-The header is written as # vtk DataFile Version x.x where the x.x is the version number.</li> 
-   <li><u>Title:</u>The title is a string limited to 256 characters. The title is not used by VisIt but should
+   <li><u>Header:</u> The header is the first line of a VTK file and contains the file version and identifier.
+The header is written as <code># vtk DataFile Version x.x</code> where the <code>x.x</code> is the version number.</li> 
+   <li><u>Title:</u> The title is a string limited to 256 characters. The title is not used by VisIt but should
 be a description of the data contained in the VTK file.</li> 
-   <li><u>Data Type:</u>The data type can either be BINARY or ASCII. Reading and writing binary data is
+   <li><u>Data Type:</u> The data type can either be <code>BINARY</code> or <code><code>ASCII</code></code>. Reading and writing binary data is
 quicker. However, binary data is only portable across different machines if the machines have
 the same byte ordering. If the byte ordering between machines differed, then binary VTK
 files need to be preprocessed before they are able to be read by VisIt. Because we don’t work
-with large datasets when using VTK files, we use ASCII data because of its flexibility and
+with large datasets when using VTK files, we use <code>ASCII</code> data because of its flexibility and
 simplicity.</li> 
-   <li><u>Grid Structure:</u>This section begins with a line containing DATASET followed by a keyword that
-describes the structure of the grid. The options are STRUCTURED_POINTS, STRUCTURED_GRID,
-UNSTRUCTURED_GRID, POLYDATA, STRUCTURED_POINTS, RECTILINEAR_GRID, or FIELD. Depend-
+   <li><u>Grid Structure:</u> This section begins with a line containing DATASET followed by a keyword that
+describes the structure of the grid. The options are <code>STRUCTURED_POINTS</code>, <code>STRUCTURED_GRID</code>,
+<code>UNSTRUCTURED_GRID</code>, <code>POLYDATA</code>, <code>STRUCTURED_POINTS</code>, <code>RECTILINEAR_GRID</code>, or <code>FIELD</code>. Depend-
 ing on which option is used, there are additional lines that are required to specify the grid
 (e.g. the dimensions and spacing). Detailed information can be found in the VTK file format
 documentation:
 
 <a href="https://examples.vtk.org/site/VTKFileFormats/"><code>https://examples.vtk.org/site/VTKFileFormats/</code></a>
 </li> 
-   <li><u>Data Set Attributes:</u>This section begins with either POINT_DATA or CELL_DATA followed by an
+   <li><u>Data Set Attributes:</u> This section begins with either <code>POINT_DATA</code> or <code>CELL_DATA</code> followed by an
 integer specifying the number of points or cells of the data. The next line specifies the type of
-data using one of the keywords SCALARS, VECTORS, or TENSORS. Following this keyword are
+data using one of the keywords <code>SCALARS</code>, <code>VECTORS</code>, or <code>TENSORS</code>. Following this keyword are
 the dataName and dataType. The dataName is a short string-identifier and is the variable
 that shows up in VisIt when a VTK file is loaded as a database. The dataType—which differs
-from the earlier ASCII vs binary data type—describes the type of numerical data (e.g. int,
+from the earlier <code>ASCII</code> vs binary data type—describes the type of numerical data (e.g. int,
 float, double).</li> 
-   <li><u>Data:</u>Following the first five sections, data is output. The structure of the data will depend
+   <li><u>Data:</u> Following the first five sections, data is output. The structure of the data will depend
 on the grid chosen in step 4 as well as the type of data (scalar, vector, tensor).</li> 
 </ol>
 
 In Code Lst. 4.1.2, we show an example of a truncated VTK data file that contains vector field
 data.
 
-**insert code listing**
-Here, the header is # vtk DataFile Version 2.0, the title is spin_vector, and the data type
-is ASCII. The grid structure is DATASET STRUCTURED_POINTS, which is a 1D, 2D, or 3D grid with
-evenly spaced grid points. To fully specify the grid structure of STRUCTURED_POINTS, we must add the
-lines DIMENSIONS, ORIGIN, and SPACING. By setting DIMENSIONS to 3 3 3, we choose a 3×3×3 grid
-(which also implicitly chooses 3D). By setting ORIGIN to -30 -30 -30 and SPACING to 30 30 30,
-we set the grid to be [−30, 30] × [−30, 30] × [−30, 30] where the coordinates can take the values
-x, y, z ∈ {−30, 0, 30}. The ORIGIN specifies the corner of the grid closest to the −x, −y, −z quadrant
-and the SPACING specifies the distance between grid points. In the data set attributes section, we
-have the lines POINT_DATA 27 and VECTORS spinvec float. The first line communicates that we
-are specifying data on the grid points and that we have a total of 33 = 27 grid points. The second line
+```vtk
+1 # vtk DataFile Version 2.0
+2 spin_vector
+3 ASCII
+4 DATASET STRUCTURED_POINTS
+5 DIMENSIONS 3 3 3
+6 ORIGIN -30 -30 -30
+7 SPACING 30 30 30
+8 POINT_DATA 27
+9 VECTORS spinvec float
+10 8.185832e-04 5.333040e-04 2.078931e-03
+11 8.185832e-04 5.333040e-04 2.078931e-03
+12 8.185832e-04 5.333040e-04 2.078931e-03
+13 8.185832e-04 5.333040e-04 2.078931e-03
+14 ...
+```
+**Code Listing 4.1.2: Example of a VTK File**
+{: style="text-align: center;"}
+
+
+
+Here, the header is <code># vtk DataFile Version 2.0</code>, the title is <code>spin_vector</code>, and the data type
+is <code>ASCII</code>. The grid structure is <code>DATASET STRUCTURED_POINTS</code>, which is a **1D**, **2D**, or **3D** grid with
+evenly spaced grid points. To fully specify the grid structure of <code>STRUCTURED_POINTS</code>, we must add the
+lines <code>DIMENSIONS</code>, <code>ORIGIN</code>, and <code>SPACING</code>. By setting <code>DIMENSIONS</code> to <code>3 3 3</code>, we choose a 3×3×3 grid
+(which also implicitly chooses 3D). By setting <code>ORIGIN</code> to <code>-30 -30 -30</code> and <code>SPACING</code> to <code>30 30 30</code>,
+we set the grid to be <code>[−30, 30] × [−30, 30] × [−30, 30]</code> where the coordinates can take the values
+x, y, z ∈ {−30, 0, 30}. The <code>ORIGIN</code> specifies the corner of the grid closest to the −x, −y, −z quadrant
+and the <code>SPACING</code> specifies the distance between grid points. In the data set attributes section, we
+have the lines <code>POINT_DATA 27</code> and <code>VECTORS</code> spinvec float. The first line communicates that we
+are specifying data on the grid points and that we have a total of 3$^3$ = 27 grid points. The second line
 specifies that our data is vector data (i.e. we need to specify a vector at each point on the grid). We
-set the dataName to spinvec and the dataType to float. After this section is the actual data, which
-is truncated but should contain 27 lines of 3 floats separated by spaces. With STRUCTURED_POINTS,
+set the <code>dataName</code> to <code>spinvec</code> and the <code>dataType</code> to <code>float</code>. After this section is the actual data, which
+is truncated but should contain 27 lines of 3 floats separated by spaces. With <code>STRUCTURED_POINTS</code>,
 the data is ordered with x increasing fastest, then y, then z. So the first four lines of data would
-correspond to the points (−30, −30, −30), (−30, −30, 0), (−30, −30, 30), (−30, 0, −30).
+correspond to the points <code>(−30, −30, −30)</code>, <code>(−30, −30, 0)</code>, <code>(−30, −30, 30)</code>, <code>(−30, 0, −30)</code>.
 
 ## Plots and Operators
 Once databases are loaded into VisIt, plots are created using the data to produce a visualization.
@@ -171,13 +193,15 @@ Operators can be applied to the plots to modify the resulting information. Plots
 have settings that change different aspects of the visualization ranging from aesthetics to compute
 time and numerical accuracy. It is important to understand how different plots and operators are used and how their settings affect the resulting visualization.
 ### Volume Rendering
-Volume rendering, which is employed by the Volume plot, is a way of visualizing 3D scalar fields such
+
+Volume rendering, which is employed by the **Volume** plot, is a way of visualizing 3D scalar fields such
 as the fluid density. With volume rendering, different values in the scalar field are mapped to different
 colors and opacities. This mapping allows certain values to be emphasized. Additionally, because
 the mapping is continuous, volume rendering can create high-quality plots that can incorporate all
 the input data in the final rendered image with proper configuration. Since GRMHD simulations
 involve a fluid density (which is a scalar field) that is used to model neutron stars and accretion
 disks, volume rendering is an important tool for visualization in numerical relativity.
+
 Volume rendering within VisIt can be broken into three distinct methods: Splatting, 3D
 Texturing, and Ray Casting, however Ray Casting is essentially the only method that is used within
 scientific visualizations due to its precision. For both Splatting and 3D Texturing, the volume
@@ -187,6 +211,8 @@ so, as the dataset becomes larger, the data will have to be resampled and fed in
 card, resulting in a loss of quality within the images. On the other hand, Ray Casting is a more
 computationally intensive volume rendering technique and uses the entire dataset; however, the
 computational load can be parallelized to produce high quality images in a timely manner.
+
+
 Ray casting volume rendering works in three steps. First, the scalar database must be loaded
 into VisIt. From here, we specify a camera/viewing angle (think a camera positioned at a point
 in 3D space pointed at the data). From this camera angle, rays are shot out from each pixel of
@@ -198,7 +224,7 @@ surrounds a binary black hole system can be seen in Fig. 14. For the remainder o
 will refer to ray casting volume rendering as simply volume rendering.
 For our visualizations, we find that the following Volume plot settings are the most important.
 <ol>
-   <li><u><code>colorControlPointList</code>: colorbar used for plot</u>
+   <li><u><code>colorControlPointList</code>: colorbar used for plot</u> 
 The colorbar is created through a series of color points placed at different relative density
 values. The colorControlPoint field takes in the RGBA color value and the density data
 distribution percentage. Unlike isosurface rendering, rendering automatically fills in the
@@ -211,14 +237,15 @@ intermediate colors.
 {: style="text-align: center;"}
 
 
-<div style="text-align: center;">
-    <p>Figure 14: Ray casting volume rendering of a magnetized accretion disk around a binary black hole
-system</p>
-</div>
+Figure 14: Ray casting volume rendering of a magnetized accretion disk around a binary black hole
+system
+{: style="text-align: center;"}
 
 <ol start="2">
 </li> 
-   <li><u><code>freeformOpacity</code>: Opacity map used for plot</u>
+   <li><u><code>freeformOpacity</code> - Opacity map used for plot:</u>
+
+
    Instead of filling up the colorbar with different color palettes, we are able to exercise fine
 control over what density values are displayed through the 256-bit freeform array.The colorbar is projected over this array with each value corresponding to a unique density distribution
 percentage. A 0 corresponds to complete transparency whereas 256 corresponds to complete
@@ -229,13 +256,17 @@ array positions we are able to “activate” different parts of the volume plot
 can emphasize the higher densities in an accretion disk by increasing the opacity of the higher
 density values relative to lower densities).
 </li>
-   <li><u><code>opacityAttenuation</code>: Adjusts overall transparency</u>
+   <li><u><code>opacityAttenuation</code> - Adjusts overall transparency:</u>
+
+
 While the freeform array helps control the finer transparency details, we can also increase
 or decrease the overall transparency of the volume plot. This is often done at the end after
 constructing the colorbar and opacity array (for example we decrease the opacityAttenuation
 when we want to be able to see a black hole that is obstructed by the accretion disk).
 </li> 
-    <li><u><code>colorVarMin/Max:</code>: Changes limits on colorbar</u>
+    <li><u><code>colorVarMin/Max:</code> - Changes limits on colorbar:</u> 
+
+
 If we want to only visualize a certain range of the data, we can explicitly specify the minimum
 and maximum density values after setting useColorVarMin/Max to true. In volume plots of the
 density, we actually plot the logarithm of a normalized rest-mass density log(ρ0 /ρmax
@@ -255,7 +286,7 @@ will be transparent. Note that values outside the range (colorVarMin,colorVarMax
 transparent.
 
 </li> 
-   <li><code>samplesPerRay:</code>: Adjusts smoothness and resolution of plot</code> 
+   <li><code>samplesPerRay:</code> Adjusts smoothness and resolution of plot</code> 
 As mentioned before, ray casting creates the plot by shooting rays and sampling the points
 in its path. By increasing the number of samples that are being cast through the data for
 each ray, we are able to improve the overall quality of the image. Having too few sample
@@ -303,37 +334,31 @@ a colorbar with discrete sections of color.
 
 
 ![alt text](img/section5_volumerendering/volumerendering_figure1.png)
-<div style="text-align: center;">
-    <p>Figure 15: Creating a volume rendering plot</p>
-</div>
+Figure 15: Creating a volume rendering plot
+{: style="text-align: center;"}
 
 ![alt text](img/section5_volumerendering/volumerendering_figure2.png)
-<div style="text-align: center;">
-    <p>Figure 16: Volume rendering settings</p>
-</div>
+Figure 16: Volume rendering settings
+{: style="text-align: center;"}
 
 The following is the corresponding CLI script in order to recreate the Volume Rendering image
 in Fig. 17.
 
 ![alt text](img/section5_volumerendering/volumerendering_figure3.png)
-<div style="text-align: center;">
-    <p>Figure 17: Volume rendering of the sample density file</p>
-</div>
+Figure 17: Volume rendering of the sample density file
+{: style="text-align: center;"}
 
 ![alt text](img/section5_volumerendering/smoothing-linear.png)
-<div style="text-align: center;">
-    <p>Figure 18: Colorbar with linear interpolation</p>
-</div>
+Figure 18: Colorbar with linear interpolation
+{: style="text-align: center;"}
 
 ![alt text](img/section5_volumerendering/smoothing-cublic.png)
-<div style="text-align: center;">
-    <p>Figure 19: Colorbar with cubic spline interpolation</p>
-</div>
+Figure 19: Colorbar with cubic spline interpolation
+{: style="text-align: center;"}
 
 ![alt text](img/section5_volumerendering/smoothing-none.png)
-<div style="text-align: center;">
-    <p>Figure 20: Colorbar with no interpolation</p>
-</div>
+Figure 20: Colorbar with no interpolation
+{: style="text-align: center;"}
 
 **Code List
 
@@ -358,9 +383,8 @@ through explicitly specifying the level values themselves such using a comma-sep
 ![alt text](img/figures/3.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 21: Isosurface rendering of a massive accretion disk around a black hole</p>
-</div>
+Figure 21: Isosurface rendering of a massive accretion disk around a black hole
+{: style="text-align: center;"}
 
 In Fig. 21, we use isosurface rendering to plot the fluid density of a massive accretion disk around
 a black hole (here the Slice operator is used to view the interior of the disk). Since we are working
@@ -369,7 +393,7 @@ their respective settings when creating a visualization using isosurface renderi
 following parameters are the most important to consider when developing isosurface visualizations.
 
 <ol>
-   <li><u><code>contourMethod</code>: Specifies the values of the isosurfaces</u>
+   <li><u><code>contourMethod</code>: Specifies the values of the isosurfaces</u> 
 VisIt offers three methods to select the specific isosurfaces that are plotted: Level, Percent,
 and Value. If we choose Level, then VisIt will drawn N evenly spaced isosurfaces between a
 specified minimum and maximum value (see min/max below) where N is a positive integer
@@ -388,14 +412,14 @@ range increases the detail of the visualization. However, when the number of iso
 increased, the opacity of the isosurfaces should be decreased accordingly so that the interior
 isosurfaces are still visible. 
 </li> 
-   <li><u><code>min/max</code>: Adjusts the range of data plotted</u>
+   <li><u><code>min/max</code>: Adjusts the range of data plotted</u> 
 If we wish to use a specific range of data, then we must set minFlag and maxFlag to 1 (true) in both the pseudocolor and isosurface settings (unless we are using contourMethod=Value in the isosurface settings, in which case it doesn’t matter). Then we can specify the minimum and maximum values for the color table (isosurfaces) by changing the min and max fields in the pseudocolor (isosurface) settings. If we leave min/maxFlag off, then the minimum/maximum values will be the absolute minimum/maximum values of the entire dataset.
 </li>
-   <li><u><code>colorTableName</code>: Sets the color table used by the plot</u>
+   <li><u><code>colorTableName</code>: Sets the color table used by the plot</u> 
 The name of the color table used is set in the pseudocolor settings. The specifics about
 creating and exporting a color table are discussed in Sec. 4.4.
 </li> 
-    <li><u><code>opacityType</code>: Sets the opacity of the isosurfaces</u>
+    <li><u><code>opacityType</code>: Sets the opacity of the isosurfaces</u> 
 In the pseudocolor settings, we set the opacityType field to either Constant or ColorTable.
 If we set it to Constant, then we can set the opacity of all isosurfaces to an opacity specified by
 the opacity field (which is a number between 0 and 1). If we set it to ColorTable, then the
@@ -428,9 +452,8 @@ we can click on Draw in order to create a rendering of the data
 ![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure2.png){: style="width:45%; display:inline-block;" }
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 22: Setup for the isosurface rendering</p>
-</div>
+Figure 22: Setup for the isosurface rendering
+{: style="text-align: center;"}
 
 **Code List
 <ol start='2'>
@@ -502,9 +525,8 @@ can adjust the number of isosurfaces and the values each isosurface corresponds 
 ![alt text](img/section5_isosurfacerendering/isosurface_rendering_figure3.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 23: Adjusting pseudocolor plot attributes and isosurface operator attributes</p>
-</div>
+Figure 23: Adjusting pseudocolor plot attributes and isosurface operator attributes
+{: style="text-align: center;"}
 
 <ol start='5'>
 <li>
@@ -518,9 +540,8 @@ as well as using 25 levels within the rendering process.
 {: style="text-align: center;"}
 
 
-<div style="text-align: center;">
-    <p>Figure 24: Isosurface rendering final image</p>
-</div>
+Figure 24: Isosurface rendering final image
+{: style="text-align: center;"}
 
 **Code
 
@@ -554,37 +575,32 @@ You are encouraged to explore some of the settings to see how they affect the pl
 {: style="text-align: center;"}
 
 
-<div style="text-align: center;">
-    <p>Figure 25: VisIt GUI vector attributes</p>
-</div>
+Figure 25: VisIt GUI vector attributes
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_vector_files/5.2.3.1-vector-glyphs.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 26: Vector Glyph attributes</p>
-</div>
+Figure 26: Vector Glyph attributes
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_vector_files/5.2.3.2-vector-data.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 27: Vector data and vectors attributes</p>
-</div>
+Figure 27: Vector data and vectors attributes
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_vector_files/5.2.3.3-vector_vectors.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 27: Vector data and vectors attributes</p>
-</div>
+Figure 27: Vector data and vectors attributes
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_vector_files/5.2.3.4-final_plot.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 28: VisIt GUI vector field plot</p>
-</div>
+Figure 28: VisIt GUI vector field plot
+{: style="text-align: center;"}
 
 **insert code listing here**
 
@@ -592,7 +608,7 @@ Now that we know how to create vector plots, we will go over some important Vect
 settings.
 
 <ol>
-   <li><u><code>scale, scaleByMagnitude, autoScale, headSize</code>: Vector size</u>
+   <li><u><code>scale, scaleByMagnitude, autoScale, headSize</code>: Vector size</u> 
 These settings affect the size of the vectors in the vector plot. The parameter scaleByMagnitude
 scales the size of the vector drawn by VisIt depending on the magnitude of the vector field at
 that location. If the range of magnitudes of the vectors that we want to plot isn’t too large,
@@ -607,7 +623,7 @@ and scale options scale the size of all the vectors regardless of whether scaleB
 is turned on or off. The headSize changes the size of the head of the vector relative to its
 length. The thickness of the stem can changed using the stemWidth option 
 </li> 
-   <li><u><code>colorByMag, colorTableName, vectorColor</code>: Vector color</u>
+   <li><u><code>colorByMag, colorTableName, vectorColor</code>: Vector color</u> 
 
 If the option colorByMag is turned off, then all the vectors will be the same color. This color
 is specified by changing vectorColor to the desired RGBA tuple. For example, for opaque
@@ -618,7 +634,7 @@ range of magnitudes present in the data. If we want to restrict this range, we c
 the options minFlag and maxFlag and specify the minimum and maximum magnitudes by
 changing min and max.
 </li>
-   <li><u><code>glyphLocation, nVectors, useStride</code>: Vector placement</u>
+   <li><u><code>glyphLocation, nVectors, useStride</code>: Vector placement</u> 
 The choices for glyphLocation are AdaptsToMeshResolution and UniformInSpace. VisIt
 uses AdaptsToMeshResolution as a default. In this case, areas with a finer grid (for example
 when using adaptive mesh refinement) will have a denser distribution of vectors while areas
@@ -663,9 +679,8 @@ navigate to: Pseudocolor → operators → IntegralCurve → vec field (Fig. 29)
 ![alt text](img/sec_5_streamline_files/5.2.4.0-add_streamline.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 29: Adding a streamline plot</p>
-</div>
+Figure 29: Adding a streamline plot
+{: style="text-align: center;"}
 
 Next, we need to pick seed points to use. To do this, we open the OpAtts (operator attributes)
 dropdown menu at the top of the window and select: Integral Curves → IntegralCurve. Since
@@ -694,23 +709,20 @@ attribute equal to
 ![alt text](img/sec_5_streamline_files/5.2.4.1-integralcurve_atts.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 30: Integral Curve Attributes</p>
-</div>
+Figure 30: Integral Curve Attributes
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_streamline_files/5.2.4.1-integralcurve_atts1.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 30: Integral Curve Attributes</p>
-</div>
+Figure 30: Integral Curve Attributes
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_streamline_files/5.2.4.2-final-plot.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 31: Example Streamline Plot</p>
-</div>
+Figure 31: Example Streamline Plot
+{: style="text-align: center;"}
 
 This way, we can write our own scripts to generate seed points. In the following example, we use
 NumPy. Another option is to read from a previously created text file. The CLI script that recreates
@@ -723,7 +735,7 @@ important integration settings. For our visualizations, we primarily tune the fo
 parameters.
 
 <ol>
-   <li><u><code>PseudocolorAttributes()</code>: Streamline color</u>
+   <li><u><code>PseudocolorAttributes()</code>: Streamline color</u> 
 In the CLI, changing the color of the streamlines is done by changing the PseudocolorAttributes()
 corresponding to the plot (it seems that in the CLI, the streamlines are automatically colored
 by magnitude which cannot be changed). To have constant color streamlines, a constant
@@ -732,7 +744,7 @@ be applied to the streamlines plot by setting colorTableName to the new color ta
 usual with settings pertaining to color, we can set the bounds of the color table by turning on
 minFlag, maxFlag and changing min, max. 
 </li> 
-   <li><u><code>maxStepLength</code>: Maximum step length taken at each integration step</u>
+   <li><u><code>maxStepLength</code>: Maximum step length taken at each integration step</u> 
 
 In practice, decreasing the maximum step length increases the smoothness of the streamline.
 Integrators commonly increase the step length when the magnitude of the vector field is
@@ -742,7 +754,7 @@ However, if your step length is too small, then your streamlines can get caught 
 errors. It is important to note that decreasing the step length will decrease the overall length
 of your streamline, which can be counteracted by increasing maxSteps.
 </li>
-   <li><u><code>maxSteps</code>: Number of integration steps taken</u>
+   <li><u><code>maxSteps</code>: Number of integration steps taken</u> 
 For a fixed maxStepLength, increasing the number of integration steps typically increases the
 length of the streamline. Since integrating more steps increases computational complexity, we
 recommend starting with a smaller number of steps (≈ 1000) and increasing the number of
@@ -750,30 +762,30 @@ steps until you are satisfied with your image. A helpful way to visualize your s
 setting the number of steps to 1-10. If you increase maxSteps but you don’t see any change in
 the length of your streamlines, try using a different integrationType and maxStepLength.
 </li> 
-    <li><u><code>integrationDirection</code>: Integrate parallel or anti-parallel with the vector field</u>
+    <li><u><code>integrationDirection</code>: Integrate parallel or anti-parallel with the vector field</u> 
 You can integrate your seed points along the vector field using the Forward option (think the
 movement of a positive charge in an electric field) and you can integrate your seed points
 against the vector field using the Backward option (think the movement of a negative charge
 in an electric field). To integrate in both directions, use the Both option.
 </li>
 
-<li><u><code>integrationType</code>: Integration algorithm used</u>
+<li><u><code>integrationType</code>: Integration algorithm used</u> 
 Integration methods affect the stability of the streamline. Lower-order integrators such as
 Euler (first-order) or Leapfrog (second-order) are less accurate at following the exact solution
 than Runge-Kutta (fourth-order) methods. However, streamline integration in 3D is very
 finicky, and we sometimes have used Euler/Leapfrog to get better images.
 <ul>
-<li><u><code>DormandPrince</code>: Runge-Kutta-Dormand-Prince</u>
+<li><u><code>DormandPrince</code>: Runge-Kutta-Dormand-Prince</u> 
 This is VisIt’s most advanced integrator, which allows the user to pick tolerances that
 match the simulation data. It also uses an adaptive step length which you can limit by changing maxStepLength. We recommend defaulting to this integrator and experimenting
 with the settings before trying other options.
 </li>
-<li><u><code>RK4</code>: Runge-Kutta 4</u>
+<li><u><code>RK4</code>: Runge-Kutta 4</u> 
 This is a standard RK4 fourth-order integrator that uses a fixed step length that the user
 can change by changing maxStepLength (this setting limits the maximum step length
 for adaptive step integrators and sets the step length for fixed step integrators).
 </li>
-<li><u><code>Euler/Leapfrog</code>:</u>
+<li><u><code>Euler/Leapfrog</code>:</u> 
 Euler implements the standard first-order Euler method integrator and Leapfrog is a
 second-order integrator. These are also fixed step length integrators. Since lower-order
 integrators are more prone to error, we don’t recommend using these unless you’ve
@@ -800,9 +812,8 @@ allows us to create mathematical expressions from database variables.
 ![alt text](img/section5_expressionscorrelations/expressionsandcorrelationsfigure1.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 32: Expression window within VisIt</p>
-</div>
+Figure 32: Expression window within VisIt
+{: style="text-align: center;"}
 
 In the GUI, expressions can be created and edited in the expressions window at Controls→Expressions.
 On the left-hand side, there is an expression list that contains a list of different expressions that
@@ -828,9 +839,8 @@ can write the expression as seen within Fig. 33. After doing so, we use this var
 ![alt text](img/section5_expressionscorrelations/expressionsandcorrelationsfigure3.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 33: Set up for log ρ expression</p>
-</div>
+Figure 33: Set up for log ρ expression
+{: style="text-align: center;"}
 
 From here, we can create an isosurface rendering of the density, which can be done following the
 steps listed in Sec. 4.2.2. The final image should look similar to Fig. 34.
@@ -848,9 +858,8 @@ new scalar expressions of these databases after they have been cast onto the Car
 ![alt text](img/section5_expressionscorrelations/expressionsandcorrelationfigure4.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 34: Isosurface rendering of log(ρ) - sample density</p>
-</div>
+Figure 34: Isosurface rendering of log(ρ) - sample density
+{: style="text-align: center;"}
 
 This is done with conn cmfe() method. For the Bx.file * database which has the HDF5 prefix
 MHD EVOVLE, we would do:
@@ -870,16 +879,14 @@ definition. The expressions for Bx and Bvec are shown in Fig.
 ![alt text](img/sec_5_expressions/vec_2.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 35: Creating a vector expression from scalar HDF5 databases</p>
-</div>
+Figure 35: Creating a vector expression from scalar HDF5 databases
+{: style="text-align: center;"}
 
 ![alt text](img/sec_5_expressions/vec_1.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 35: Creating a vector expression from scalar HDF5 databases</p>
-</div>
+Figure 35: Creating a vector expression from scalar HDF5 databases
+{: style="text-align: center;"}
 
 
 In the command line, this can be done using Code Lst. 4.3 which can also be found at
@@ -914,9 +921,8 @@ how the colors are smoothed into each other.
 ![alt text](img/sect_5_export/5.4.1-ct_atts.png)
 {: style="text-align: center;"}
 
-<div style="text-align: center;">
-    <p>Figure 36: Creating color tables</p>
-</div>
+Figure 36: Creating color tables
+{: style="text-align: center;"}
 
 When we are done, we need to export the color table so it can be used in other parts of VisIt.
 First, we give the color table a name in the Name field (in the example below, we name our
@@ -938,9 +944,10 @@ attributes .xml file before saving (Fig. 37)
 
 
 ![alt text](img/sect_5_export/5.4.2-expt_vol_atts.png)
-<div style="text-align: center;">
-    <p>Figure 37: Exporting attributes to .xml files</p>
-</div>
+{: style="text-align: center;"}
+
+Figure 37: Exporting attributes to .xml files
+{: style="text-align: center;"}
 
 Now that we have a volume attributes .xml file saved, instead of specifying the volume settings
 one by one in the CLI like shown in Code Lst. 4.4.
@@ -957,9 +964,10 @@ that we change very often, it is still useful to directly set them in the CLI. C
 saved .xml file, and then override specific settings with our own choices.
 
 ![alt text](img/sec_5_finalize/5.5.0-view_diagram.png)
-<div style="text-align: center;">
-    <p>Figure 38: View 3D diagram</p>
-</div>
+{: style="text-align: center;"}
+
+Figure 38: View 3D diagram
+{: style="text-align: center;"}
 
 ## Finalizing Images
 
@@ -982,9 +990,10 @@ make use of them. With the exception of the t/M label, we finalize our images by
 legends and labels, and adding our own with image editors like GIMP or Photoshop. However, we will still briefly go over some of the options you have.
 
 ![alt text](img/sec_5_finalize/5.5.1-text_annotation.png)
-<div style="text-align: center;">
-    <p>Figure 39: Text Annotations</p>
-</div>
+{: style="text-align: center;"}
+
+Figure 39: Text Annotations
+{: style="text-align: center;"}
 
 o open the annotation settings in the GUI, click Annotation in the Control dropdown menu.
 The setting that you might want to change first is the background color, which can be found in
