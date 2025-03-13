@@ -6,7 +6,7 @@ broad insights related to gravitational wave emission can be deduced. These visu
 the following simulation output database:
 
 <ul>
-    <li><b>Psi4 rad.mon.#</b>: ASCII files containing the Newman-Penrose scalar decomposed into s = −2
+    <li><b>Psi4_rad.mon.#</b>: ASCII files containing the Newman-Penrose scalar decomposed into s = −2
 spin-weighted spherical harmonics ψ<sub>4</sub><sup>lm</sup>. There are multiple files with # = 1,2,...,9 that
 correspond to different extraction radii r<sub>areal</sub>.</li>
 </ul>
@@ -22,6 +22,11 @@ Multiple files #=1,2,...,9 that correspond to different rareal are output so tha
 the gravitational wave amplitude falls of like r <sup>−1</sup> and otherwise does not depend on the extraction
 radius. The first column is the simulation time t. The rest of the columns are the real and imaginary components of ψ<sub>4</sub> decomposed into ψ<sub>4</sub><sup>lm</sup>, which are the s = −2 spin-weighted spherical harmonics
 <sub>-2</sub>Y <sub>lm</sub> (θ, ϕ) [1].
+
+$$
+\psi_4(t, \theta, \phi) =
+\sum_{l=2}^{\infty} \sum_{m=-l}^{l} \psi_4^{lm}(t) \; {}^{-2}Y_{lm}(\theta, \phi)
+$$
 
 
 For example: columns 2, 3 are modes (l, m) = (2, 2); columns 4, 5 are modes (l, m) = (2, 1); columns
@@ -54,6 +59,10 @@ of the system (for the most dominant (2, 2) mode). Implementation-wise, the Four
 done with a standard Fast Fourier Transform with padding added to each end of the time-domain
 signal. After this double-time integration, we will have the values C<sup>lm</sup> as a function of time:
 
+$$
+C_{lm}(t) = \int_{-\infty}^{t} dt' \int_{-\infty}^{t'} dt'' \, \psi_4^{lm}(t'')
+$$
+
 At this step, we have an array of the C<sup>lm</sup>(t) that is a function of time. We already have the angular
 dependence from the spherical harmonics <sub>-2</sub>Y<sub>lm</sub> (θ, ϕ). In order to obtain the radial dependence, we
 will have to consider how the amplitude of h falls as 1/r, as well as the time retardation t = t(r)
@@ -61,6 +70,14 @@ due to the time it takes the signal to reach the observer at the radiation zone 
 
 To add the time retardation, we consider howC<sup>lm</sup>(r) should look like at a fixed time t = t0. We
 define a retarded time:
+
+$$
+t_0(r) =
+\begin{cases}
+t_0 - r & \text{if } t_0 \ge r \\\\
+0 & \text{if } t_0 < r
+\end{cases}
+$$
 
 Note that in units of c = 1, the speed of gravitational waves is one. Therefore at a radius r, we
 want to use the data “from the past” at time t0(r) = t0 − r. If our fixed time, t0, is relatively early
@@ -70,7 +87,16 @@ there might be numerical errors that cause C<sup>lm</sup>(t = 0) to be nonzero e
 C<sup>lm</sup>(t = 0) = 0. Then we can add this time retardation, along with the 1/r dependence to get
 radial dependence at a fixed time t0 using
 
+$$
+C_{lm}(t_0, r) = \frac{1}{r} \, C_{lm}(t_0(r))
+$$
+
 Then we can get the 3D data of the gravitational wave strain at a fixed time t0 using
+
+$$
+\frac{1}{2} \left( h_+(t_0, r, \theta, \phi) - i h_\times(t_0, r, \theta, \phi) \right) =
+\frac{1}{r} \sum_{l=2}^{\infty} \sum_{m=-l}^{l} C_{lm}(t_0(r)) \, {}^{-2}Y_{lm}(\theta, \phi)
+$$
 
 The individual polarization h+ (h×) can be obtained by taking the real (imaginary) part of
 this expression. Using the method described above, we are able to create a 3D data file that
@@ -115,20 +141,20 @@ number of rows) in our output Psi4 rad.mon.# file. In order to apply Eq. 5 to th
 to express Eq. 4 in terms of indices. To do this, we need the time step dt between times. Then we
 can use
 
-rt = ((t - (r/dt)).astype(int)).clip(min=0)
+    rt = ((t - (r / dt)).astype(int)).clip(min=0)
 
 to implement Eq. 5. This example is in Python, and r is the lookup table NumPy array for r and t
 is the index for the time. This way, t and r/dt both have “index” dimensions. It is then cast as an
 integer and all negative values are set to zero so that rt is an array of indices (that we can access
 as rt[i,j,k]). Then NumPy allows us to simply do
 
-Clm_ijk = Clm[rt,:]
+    Clm_ijk = Clm[rt,:]
 
 to implement Eq. 5 and create an array Clm ijk of shape [n x,n y,n z,n modes]. This is now
 the same shape as the lookup table Ylm so now Eq. 6 can be implemented by summing over the
 lm-modes and dividing by the r lookup table
 
-hplus_hcross = 2*(1/r)*np.einsum('ijkm->ijk', Clm_ijk*Ylm)
+    hplus_hcross = 2*(1/r)*np.einsum('ijkm->ijk', Clm_ijk*Ylm)
 
 where we have used NumPy’s einsum method to sum over the modes. Then h+ and h× can be
 obtained by taking the real and imaginary parts of the hplus hcross array of complex numbers.
@@ -150,7 +176,7 @@ After inputting the grid settings in the header, we just have to add the data. A
 x coordinate increasing the fastest, then the y, and then the z. In NumPy, one way to convert an
 array that is indexed like h[i,j,k] to a 1D array that follows this criteria is by doing
 
-h_kji_flat = (np.einsum('ijk->kji', h)).flatten()
+    h_kji_flat = (np.einsum('ijk->kji', h)).flatten()
 
 Below we show an example of such a .vtk file.
 

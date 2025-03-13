@@ -148,7 +148,25 @@ on the grid chosen in step 4 as well as the type of data (scalar, vector, tensor
 In Code Lst. 4.1.2, we show an example of a truncated VTK data file that contains vector field
 data.
 
-**insert code listing**
+```vtk
+1 # vtk DataFile Version 2.0
+2 spin_vector
+3 ASCII
+4 DATASET STRUCTURED_POINTS
+5 DIMENSIONS 3 3 3
+6 ORIGIN -30 -30 -30
+7 SPACING 30 30 30
+8 POINT_DATA 27
+9 VECTORS spinvec float
+10 8.185832e-04 5.333040e-04 2.078931e-03
+11 8.185832e-04 5.333040e-04 2.078931e-03
+12 8.185832e-04 5.333040e-04 2.078931e-03
+13 8.185832e-04 5.333040e-04 2.078931e-03
+14 ...
+```
+Code Lst. 4.1.2:<code>Example of a VTK file</code>
+{: style="text-align: center;"}
+
 Here, the header is # vtk DataFile Version 2.0, the title is spin_vector, and the data type
 is ASCII. The grid structure is DATASET STRUCTURED_POINTS, which is a 1D, 2D, or 3D grid with
 evenly spaced grid points. To fully specify the grid structure of STRUCTURED_POINTS, we must add the
@@ -335,7 +353,29 @@ in Fig. 17.
     <p>Figure 20: Colorbar with no interpolation</p>
 </div>
 
-**Code List
+```vtk
+1 OpenDatabase("sample_density.vtk", 0)
+2 AddPlot("Volume", "density", 1, 1)
+3 # Volume Attributes
+4 VolumeAtts = VolumeAttributes()
+5 VolumeAtts.rendererType = VolumeAtts.Raycasting
+6 VolumeAtts.samplesPerRay = 10000
+7
+8 #CubicSpline Smoothing
+9 VolumeAtts.colorControlPoints.smoothing =
+10 VolumeAtts.colorControlPoints.CubicSpline
+11
+12 SetPlotOptions(VolumeAtts)
+13 s = SaveWindowAttributes()
+14 s.format = s.PNG
+15 s.outputToCurrentDirectory = 1
+16 s.fileName="/path/to/output"
+17 SetSaveWindowAttributes(s)
+18 DrawPlots()
+19 SaveWindow()
+```
+Code Listing 4.2.1:<code>run_vol.py</code>
+{: style="text-align: center;"}
 
 ### Isosurface Rendering
 Like volume rendering, isosurface rendering is a way of visualizing 3D (as well as 2D) scalar fields.
@@ -432,7 +472,21 @@ we can click on Draw in order to create a rendering of the data
     <p>Figure 22: Setup for the isosurface rendering</p>
 </div>
 
-**Code List
+```vtk
+1 <?xml version="1.0"?>
+2 <Object name="ColorTable">
+3 <Field name="Version" type="string">3.0.0</Field>
+4 <Object name="ColorControlPointList">
+5 <Object name="ColorControlPoint">
+6 <Field name="colors" type="unsignedCharArray"
+7 length="4">13 0 255 8 </Field>
+8 <Field name="position" type="float">0.00</Field>
+9 </Object>
+10 ...
+```
+Code Listing 1:<code>First few lines of bhbhdisk.ct</code>
+{: style="text-align: center;"}
+
 <ol start='2'>
 <li>
 At this point there are quite a few different settings we can adjust in order to improve on the
@@ -522,7 +576,20 @@ as well as using 25 levels within the rendering process.
     <p>Figure 24: Isosurface rendering final image</p>
 </div>
 
-**Code
+```vtk
+1 ActivateDatabase("sample_density.vtk")
+2 AddPlot("Pseudocolor", "density", 1, 1)
+3 AddOperator("Isosurface", 1)
+4
+5 IsosurfaceAtts = IsosurfaceAttributes()
+6 IsosurfaceAtts.contourNLevels = 25
+7 IsosurfaceAtts.contourMethod = IsosurfaceAtts.Level
+8 SetOperatorOptions(IsosurfaceAtts, 0, 1)
+9
+10 DrawPlots()
+```
+Code Listing 4.2.2:<code>Isosurface Rendering CLI Commands</code>
+{: style="text-align: center;"}
 
 ### Vector Fields
 In this section, we will be making vector plots similar to section 4. The file containing the vector
@@ -586,7 +653,35 @@ You are encouraged to explore some of the settings to see how they affect the pl
     <p>Figure 28: VisIt GUI vector field plot</p>
 </div>
 
-**insert code listing here**
+```vtk
+1 from visit import *
+2
+3 OpenDatabase("/path/to/sample_vector_field.vtk")
+4 AddPlot("Vector", "vec_field")
+5
+6 v = VectorAttributes()
+7 v.scaleByMagnitude = 0
+8 v.autoScale = 0
+9 v.scale = 2.0
+10 v.colorTableName = 'hot'
+11 v.nVectors = 1000
+12 SetPlotOptions(v)
+13
+14 c = View3DAttributes()
+15 c.viewNormal = (1.0, -1.0, 0.35)
+16 c.viewUp = (0, 0, 1)
+17 SetView3D(c)
+18 s = SaveWindowAttributes()
+19 s.format = s.PNG
+20 s.outputToCurrentDirectory = 1
+21 s.fileName = "/path/to/output"
+22 SetSaveWindowAttributes(s)
+23 DrawPlots()
+24 SaveWindow()
+```
+Code Listing 4.2.3:<code>run vector.py</code>
+{: style="text-align: center;"}
+
 
 Now that we know how to create vector plots, we will go over some important Vector plot
 settings.
@@ -716,7 +811,43 @@ This way, we can write our own scripts to generate seed points. In the following
 NumPy. Another option is to read from a previously created text file. The CLI script that recreates
 the plot is in Code Lst. 4.2.4 and can also be found at <a href="https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_4/sample_density.vtk"><code>VisIt-Guide/sec 4/sample density.vtk</code></a>.
 
-**insert code listing**
+```vtk
+1 import numpy as np
+2 from visit import *
+3
+4 R = 5.; num_samples = 10
+5 thetas = np.linspace(0, np.pi, num_samples)
+6 phis = np.linspace(0, 2*np.pi, num_samples)
+7 points = []
+8 for phi in phis:
+9 for theta in thetas:
+10 x = R*np.cos(phi)*np.sin(theta)
+11 y = R*np.sin(phi)*np.sin(theta)
+12 z = R*np.cos(theta)
+13 points.extend([x, y, z])
+14
+15 OpenDatabase("sample_vector_field.vtk")
+16 AddPlot("Pseudocolor", "vec_field")
+17 AddOperator("IntegralCurve")
+18
+19 p = PseudocolorAttributes()
+20 p.minFlag = 1; p.min = 0
+21 SetPlotOptions(p)
+22 l = IntegralCurveAttributes(); l.sourceType = l.PointList
+23 l.pointList = tuple(points); l.integrationDirection = l.Both
+24 SetOperatorOptions(l)
+25
+26 c = View3DAttributes()
+27 c.viewNormal = (1.0, -0.35, 0.35); c.viewUp = (0, 0, 1)
+28 SetView3D(c)
+29 s = SaveWindowAttributes(); s.format = s.PNG
+30 s.outputToCurrentDirectory = 1; s.fileName = "streamline_fol/output"
+31 SetSaveWindowAttributes(s)
+32 DrawPlots()
+33 SaveWindow()
+```
+Code Listing 4.2.4:<code>run streamline.py</code>
+{: style="text-align: center;"}
 
 Now that we know how to create streamline plots from a set of seed points, we will go over some
 important integration settings. For our visualizations, we primarily tune the following integration
@@ -778,18 +909,7 @@ Euler implements the standard first-order Euler method integrator and Leapfrog i
 second-order integrator. These are also fixed step length integrators. Since lower-order
 integrators are more prone to error, we don’t recommend using these unless you’ve
 exhausted the other options.
-</li>
-
-
-</ul>
-
-</li>
-
-
-
 </ol>
-
-
 
 
 ## Expressions
@@ -886,7 +1006,22 @@ In the command line, this can be done using Code Lst. 4.3 which can also be foun
 <a href="https://github.com/tsokaros/Illinois-NR-VisIt-Guide/blob/main/sec_4/define_vec_field.py"><code>VisIt-Guide/sec 4/define_vec_field.py</code></a>.
 
 
-**insert code listing here**
+```vtk
+1 OpenDatabase("/path/to/data/Bx.file_* database", 0, "CarpetHDF5_2.1")
+2 OpenDatabase("/path/to/data/By.file_* database", 0, "CarpetHDF5_2.1")
+3 OpenDatabase("/path/to/data/Bz.file_* database", 0, "CarpetHDF5_2.1")
+4
+5 DefineScalarExpression(Bx, "conn_cmfe(</path/to/data/Bx.file_* \
+6 database[0]id:MHD_EVOLVE--Bx>, <Carpet AMR-grid>)")
+7 DefineScalarExpression(Bx, "conn_cmfe(</path/to/data/By.file_* \
+8 database[0]id:MHD_EVOLVE--By>, <Carpet AMR-grid>)")
+9 DefineScalarExpression(Bx, "conn_cmfe(</path/to/data/Bz.file_* \
+10 database[0]id:MHD_EVOLVE--Bz>, <Carpet AMR-grid>)")
+11
+12 DefineVectorExpression("Bvec", "{Bx, By, Bz}")
+```
+Code Listing 4.3:<code>define vec field.py</code>
+{: style="text-align: center;"}
 
 
 ## Exporting Attributes
@@ -945,11 +1080,26 @@ attributes .xml file before saving (Fig. 37)
 Now that we have a volume attributes .xml file saved, instead of specifying the volume settings
 one by one in the CLI like shown in Code Lst. 4.4.
 
-**insert code listing**
+
+```vtk
+1 v = VolumeAttributes()
+2 v.attribute1 = x1
+3 v.attribute2 = x2
+4 ...
+5 SetPlotOptions(v)
+```
+Code Listing 4.4:<code>Changing settings manually in CLI</code>
+{: style="text-align: center;"}
 
 we can simply import our settings from the .xml file like shown in Code Lst. 4.4
 
-**insert code listing**
+```vtk
+1 v = VolumeAttributes()
+2 LoadAttribute('/path/to/my_volume.xml', v)
+3 SetPlotOptions(v)
+```
+Code Listing 4.4:<code>Importing settings from a .xml file</code>
+{: style="text-align: center;"}
 
 We usually like to store the more commonly reused settings, or more complicated settings such
 as color tables or the freeformOpacity volume setting in .ct and .xml files. For some settings
@@ -974,7 +1124,16 @@ final image. See Fig. 38 for a better understanding.
 The imageZoom simply controls how zoomed in the camera is on the focus. In your script, to set
 the view of your plot, add lines like
 
-**insert code listing**
+```vtk
+1 c = View3DAttributes()
+2 c.viewNormal = (1.0, 1.0, 1.0)
+3 c.viewUp = (0.0, 0.0, 1.0)
+4 c.focus = (0.0, 0.0, 0.0)
+5 c.imageZoom = 1
+6 SetView3D(c)
+```
+Setting Options Manually in CLI
+{: style="text-align: center;"}
 
 The next things to change when finalizing an image would be the annotations. The VisIt labels
 and legends aren’t super customizable, so the numerical relativity visualizations we make don’t
@@ -995,12 +1154,43 @@ You can turn off things like the legends (e.g. colorbars), axes, and bounding bo
 the boxes in the General and 3D tabs. Below in Code Lst. 4.5, we provide a code snippet that
 applies these annotation settings we’ve discussed.
 
-**insert code listing**
+```vtk
+1 a = AnnotationAttributes()
+2 a.backgroundMode = a.Solid
+3 a.backgroundColor = (155, 155, 155, 255) #gray
+4 a.legendInfoFlag = 0
+5 a.userInfoFlag = 0
+6 a.axes3D.visible = 0
+7 a.axes3D.triadFlag = 0
+8 a.axes3D.bboxFlag = 0
+9 SetAnnotationAttributes(a)
+10
+11 txt = CreateAnnotationObject("Text2D")
+12 txt.position = (0.75, 0.95) #(x,y) where x and y range from 0 to 1
+13 txt.useForegroundForTextColor = 0
+14 txt.textColor = (255, 255, 255, 255)
+15 txt.fontBold = 1
+16 txt.fontFamily = txt.Times
+17 txt.text = "t/M = {}".format(int(t/M))
+```
+Code Listing 4.5:<code>Applying annotation settings</code>
+{: style="text-align: center;"}
 
 The final step is to specify the SaveWindowAttributes, which deal with the format of the saved
 image file. You can choose where the image is saved, and the aspect ratio of the image, among other
 settings. An example is shown in Code Lst. 4.5.
 
-**insert code listing here**
+```vtk
+1 s = SaveWindowAttributes()
+2 s.format = s.PNG
+3 s.outputToCurrentDirectory = 1 #so we can choose where to output
+4 s.fileName = "/path/to/output"
+5 s.width = 1920 #creates a 1920 X 1080 image
+6 s.height = 1080
+7 s.resConstraint = s.NoConstraint
+8 SetSaveWindowAttributes(s)
+```
+Code Listing 4.5:<code>Saving a plot to an image file</code>
+{: style="text-align: center;"}
 
 
