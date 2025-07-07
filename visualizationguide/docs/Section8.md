@@ -234,7 +234,7 @@ the velocities around the jet are relativistic.
     <p>Figure 62: Additional plots to confirm the existence of an incipient jet</p>
 </div>
 
-## Plotting Workflow on COCAL
+## Plotting COCAL ID with VisIt
 
 This section outlines the steps to visualize binary neutron star data from COCAL using VisIt. Follow this sequence to ensure a consistent and successful plotting process.
 

@@ -147,6 +147,7 @@ Keywords: **VisIT; Visualization; Numerical Relativity**
             <li><a href="#subsection-1-1">Before Black Hole Formation</a></li>
             <li><a href="#subsection-1-1">After Black Hole Formation</a></li>
             <li><a href="#subsection-1-1">Additional Plots After Merger</a></li>
+            <li><a href="#subsection-1-1">Plotting COCAL ID with VisIt</a></li>
         </ul>
         <li><a href="#section-9">Case Study: Binary Black Hole with Accretion Disk</a></li>
         <ul>
