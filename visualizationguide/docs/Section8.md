@@ -283,7 +283,7 @@ res=200
 #COCAl output directory     Should be $root/COCAL_output but change if needed
 output_dir=$root/COCAL_output
 
-#COCAL reader directory      Should be $root/COCAL_r陈丁。。eader but change if needed
+#COCAL reader directory      Should be $root/COCAL_reader but change if needed
 reader_dir=$root/COCAL_reader
 ```
 <code>params file for binary neutron star</code>
@@ -339,3 +339,8 @@ If your image doesn't look good:
 - Always source `params` before running anything in a new shell.
 - Make sure `.las` files are updated if re-running COCAL.
 - If VisIt crashes or plots blank images, double-check your color tables and hdf5 output.
+
+![alt text](img/NSNS/bns_cut_0106.png)
+<div style="text-align: center;">
+    <p>Binary Neutron Star plot</p>
+</div>
